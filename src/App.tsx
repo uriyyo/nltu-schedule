@@ -204,7 +204,7 @@ function App() {
   return (
     <div className="App">
       <Container maxWidth="md">
-        <h1>НЛТУ Розклад занять спеціальності КН, ІСТ, ІПЗ</h1>
+        <h1>НЛТУ Розклад занять для спеціальностей КН, ІСТ, ІПЗ</h1>
 
         <Autocomplete
           value={group}
