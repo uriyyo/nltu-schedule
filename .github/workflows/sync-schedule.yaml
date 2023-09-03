@@ -43,14 +43,9 @@ jobs:
         run: |
           npm install
 
-      - name: Build UI
+      - name: Deploy UI
         run: |
-          npm run build
-
-      - name: Sync UI files
-        run: |
-          rm -rf docs
-          mv build docs
+          npm run deploy
 
       - name: Commit changes
         env:
