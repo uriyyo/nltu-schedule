@@ -1,3 +1,4 @@
+import os
 import re
 from collections import defaultdict
 from itertools import chain
@@ -10,7 +11,7 @@ import json
 
 ROOT = Path(__file__).parent
 
-URL = "https://docs.google.com/spreadsheets/d/1UvLg4YWomWHY61G-zJg56VvjH7iScl9Wq0i_q7_Dq5w/export?format=csv#gid=0"
+URL = os.getenv("SCHEDULE_URL")
 
 EMPTY_CELL = "---"
 
