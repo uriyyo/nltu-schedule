@@ -49,8 +49,8 @@ jobs:
 
       - name: Sync UI files
         run: |
-          rm -rf pages
-          mv build pages
+          rm -rf docs
+          mv build docs
 
       - name: Commit changes
         env:
