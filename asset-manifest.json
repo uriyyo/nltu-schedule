@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/nltu-schedule/static/js/main.bdb5eabb.js",
+    "index.html": "/nltu-schedule/index.html",
+    "main.bdb5eabb.js.map": "/nltu-schedule/static/js/main.bdb5eabb.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.bdb5eabb.js"
+  ]
+}
