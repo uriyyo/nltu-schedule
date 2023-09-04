@@ -68,4 +68,4 @@ jobs:
 
           !(git diff-index --quiet HEAD --) && \
             git commit -am "Update schedule $DATE" && \
-            git push
+            git push || echo "No changes to commit"
