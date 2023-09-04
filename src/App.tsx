@@ -14,18 +14,30 @@ import { useSearchParams } from "react-router-dom";
 const EVENT_COLORS = ["#4db6ac", "#b2dfdb"];
 
 function BoxSx(props: any) {
-  let { width, hidden, ...rest } = props;
+  let {
+    width,
+    nominator = true,
+    halfHeight = false,
+    empty = false,
+    sx = {},
+    ...rest
+  } = props;
+  let color = nominator ? EVENT_COLORS[0] : EVENT_COLORS[1];
+  color = empty ? "white" : color;
+  if (!empty) {
+    sx.borderColor = "#bdbdbd";
+    sx.border = "1 px";
+  }
 
   return (
     <Box
       {...rest}
-      hidden={hidden}
-      visibility={hidden ? "hidden" : "visible"}
       sx={{
-        backgroundColor: EVENT_COLORS[0],
-        height: "200px",
+        backgroundColor: color,
+        height: halfHeight ? "100px" : "200px",
         margin: "10px",
-        ...(rest.sx ?? {}),
+        borderRadius: "10px",
+        ...sx,
       }}
     >
       {props.children}
@@ -34,16 +46,18 @@ function BoxSx(props: any) {
 }
 
 function EventContent(props: any) {
+  let { children, sx, ...rest } = props;
+
   return (
     <BoxSx
       margin={"10px"}
-      sx={{ backgroundColor: EVENT_COLORS[0], ...(props?.sx ?? {}) }}
       display={"flex"}
       flexDirection={"column"}
       justifyContent={"center"}
+      {...rest}
     >
       <Typography textAlign={"center"} mt={2}>
-        {props.children}
+        {children}
       </Typography>
     </BoxSx>
   );
@@ -53,11 +67,11 @@ function VerticalEvent(props: any) {
   let { events } = props;
   let size = 12 / events.length;
 
-  let mapVerticalEvents = (event: any) => {
-    if (!event) return <BoxSx sx={{ backgroundColor: "white" }}></BoxSx>;
+  let mapVerticalEvents = (verticalEvent: any) => {
+    let { type, event } = verticalEvent;
 
-    let { type, events, ...rest } = event;
-    if (type === "single") return <EventContent>{rest.event}</EventContent>;
+    if (type === "empty") return <BoxSx empty={true} />;
+    if (type === "single") return <EventContent>{event}</EventContent>;
 
     return <div>Unknown vertical event</div>;
   };
@@ -76,20 +90,17 @@ function VerticalEvent(props: any) {
 function HorizontalEvent(props: any) {
   let { events } = props;
 
-  const mapHorizontalEvents = (event: any, color: string) => {
-    if (!event) {
-      return <BoxSx sx={{ backgroundColor: "white", height: "100px" }}></BoxSx>;
-    }
+  const mapHorizontalEvents = (horizontalEvent: any, nominator: boolean) => {
+    let { type, events, event } = horizontalEvent;
 
-    let { type, events, ...rest } = event;
-
-    if (type === "single") {
+    if (type === "empty")
+      return <BoxSx halfHeight={true} nominator={nominator} empty={true} />;
+    if (type === "single")
       return (
-        <EventContent sx={{ backgroundColor: color, height: "100px" }}>
-          {rest.event}
+        <EventContent halfHeight={true} nominator={nominator}>
+          {event}
         </EventContent>
       );
-    }
 
     let size = 12 / events.length;
 
@@ -98,9 +109,9 @@ function HorizontalEvent(props: any) {
         {events.map((it: any) => (
           <Grid xs={size}>
             {!it ? (
-              <BoxSx sx={{ backgroundColor: "white" }}></BoxSx>
+              <BoxSx empty={true} />
             ) : (
-              <EventContent sx={{ backgroundColor: color }}>{it}</EventContent>
+              <EventContent nominator={nominator}>{it}</EventContent>
             )}
           </Grid>
         ))}
@@ -112,7 +123,7 @@ function HorizontalEvent(props: any) {
     <>
       {events.map((it: any, idx: number) => (
         <Grid item xs={12}>
-          {mapHorizontalEvents(it, EVENT_COLORS[idx % 2])}
+          {mapHorizontalEvents(it, idx % 2 === 0)}
         </Grid>
       ))}
     </>
@@ -196,9 +207,7 @@ function App() {
     if (!group) return;
 
     setSearchParams({ group });
-    data
-      .filter((it: any) => it.group === group)
-      .forEach(({ schedule }) => setSchedule(schedule));
+    setSchedule((data as any)[group]?.schedule);
   }, [group, setSearchParams]);
 
   return (
@@ -210,7 +219,7 @@ function App() {
           value={group}
           disablePortal
           id="group"
-          options={data.map((it: any) => it.group)}
+          options={Object.keys(data)}
           onInputChange={(event, value) => setGroup(value)}
           renderInput={(params) => <TextField {...params} label="Група" />}
         />

@@ -81,7 +81,10 @@ def all_same(items: Sequence[Any]) -> bool:
 
 def normalize_subevents(events: list[str]) -> dict[str, Any] | None:
     if all_same(events):
-        return events[0] and {"type": "single", "event": events[0]}
+        if not events[0]:
+            return {"type": "empty"}
+
+        return {"type": "single", "event": events[0]}
 
     return {"type": "multiple", "events": events}
 
@@ -96,7 +99,7 @@ def normalize_event(odd: list[str], even: list[str]) -> dict[str, Any] | None:
 
         return {
             "type": "vertical",
-            "events": [val and {"type": "single", "event": val} for val in odd],
+            "events": [{"type": "single", "event": val} if val else {"type": "empty"} for val in odd],
         }
 
     if any(x == y for x, y in zip(odd, even)):
@@ -140,7 +143,7 @@ def get_group_schedule(df: pd.DataFrame, group: str, subgroups: list[str]) -> An
     return {
         "group": group,
         "subgroups": subgroups,
-        "schedule": result
+        "schedule": result,
     }
 
 
@@ -148,14 +151,14 @@ def main() -> None:
     df = get_schedule_df()
     groups = get_groups(df)
 
-    schedules = [
-        get_group_schedule(df, group, subgroups)
+    schedules = {
+        group: get_group_schedule(df, group, subgroups)
         for group, subgroups in groups.items()
-    ]
+    }
 
-    with (ROOT / "schedule-ui" / "src" / "data.json").open("w") as f:
+    with (ROOT / "src" / "data.json").open("w") as f:
         json.dump(schedules, f, ensure_ascii=False, indent=4)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
