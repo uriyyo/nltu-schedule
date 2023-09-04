@@ -7,26 +7,27 @@ import {
   Box,
   Grid,
   Typography,
+  Divider,
 } from "@mui/material";
 import data from "./data.json";
 import { useSearchParams } from "react-router-dom";
 
-const EVENT_COLORS = ["#4db6ac", "#b2dfdb"];
+const xsSizeForArray = (arr: any[]) => 12 / arr.length;
 
-function BoxSx(props: any) {
-  let {
-    width,
-    nominator = true,
-    halfHeight = false,
-    empty = false,
-    sx = {},
-    ...rest
-  } = props;
-  let color = nominator ? EVENT_COLORS[0] : EVENT_COLORS[1];
-  color = empty ? "white" : color;
+const EventBox = ({
+  children,
+  nominator = true,
+  halfHeight = false,
+  empty = false,
+  sx = {},
+  ...rest
+}: any) => {
+  const color: string = empty ? "white" : nominator ? "#4db6ac" : "#b2dfdb";
+
   if (!empty) {
     sx.borderColor = "#bdbdbd";
     sx.border = "1 px";
+    sx["&:hover"] = { backgroundColor: nominator ? "#26a69a" : "#80cbc4" };
   }
 
   return (
@@ -40,61 +41,48 @@ function BoxSx(props: any) {
         ...sx,
       }}
     >
-      {props.children}
+      {children}
     </Box>
   );
-}
+};
 
-function EventContent(props: any) {
-  let { children, sx, ...rest } = props;
-
-  return (
-    <BoxSx
-      margin={"10px"}
-      display={"flex"}
-      flexDirection={"column"}
-      justifyContent={"center"}
-      {...rest}
+const EventContent = ({ children, sx, ...rest }: any) => (
+    <EventBox
+        margin={"10px"}
+        display={"flex"}
+        flexDirection={"column"}
+        justifyContent={"center"}
+        {...rest}
     >
-      <Typography textAlign={"center"} mt={2}>
-        {children}
-      </Typography>
-    </BoxSx>
-  );
-}
+        <Typography textAlign={"center"} mt={2}>
+            {children}
+        </Typography>
+    </EventBox>
+);
 
-function VerticalEvent(props: any) {
-  let { events } = props;
-  let size = 12 / events.length;
-
-  let mapVerticalEvents = (verticalEvent: any) => {
-    let { type, event } = verticalEvent;
-
-    if (type === "empty") return <BoxSx empty={true} />;
-    if (type === "single") return <EventContent>{event}</EventContent>;
-
-    return <div>Unknown vertical event</div>;
-  };
-
-  return (
+const VerticalEvent = ({ events }: any) => (
     <>
-      {events.map((it: any) => (
-        <Grid item xs={size}>
-          {mapVerticalEvents(it)}
-        </Grid>
-      ))}
+        {events.map(({type, event}: any, idx: number) => (
+            <Grid item key={idx} xs={xsSizeForArray(events)}>
+                {type === "empty" ? (
+                    <EventBox empty={true}/>
+                ) : type === "single" ? (
+                    <EventContent>{event}</EventContent>
+                ) : (
+                    <div>Unknown vertical event</div>
+                )}
+            </Grid>
+        ))}
     </>
-  );
-}
+);
 
-function HorizontalEvent(props: any) {
-  let { events } = props;
-
-  const mapHorizontalEvents = (horizontalEvent: any, nominator: boolean) => {
-    let { type, events, event } = horizontalEvent;
-
+const HorizontalEvent = ({ events }: any) => {
+  const mapHorizontalEvents = (
+    { type, event, events }: any,
+    nominator: boolean,
+  ) => {
     if (type === "empty")
-      return <BoxSx halfHeight={true} nominator={nominator} empty={true} />;
+      return <EventBox halfHeight={true} nominator={nominator} empty={true} />;
     if (type === "single")
       return (
         <EventContent halfHeight={true} nominator={nominator}>
@@ -102,16 +90,14 @@ function HorizontalEvent(props: any) {
         </EventContent>
       );
 
-    let size = 12 / events.length;
-
     return (
       <Grid container>
-        {events.map((it: any) => (
-          <Grid xs={size}>
-            {!it ? (
-              <BoxSx empty={true} />
-            ) : (
+        {events.map((it: any, idx: number) => (
+          <Grid key={idx} xs={xsSizeForArray(events)}>
+            {it ? (
               <EventContent nominator={nominator}>{it}</EventContent>
+            ) : (
+              <EventBox empty={true} />
             )}
           </Grid>
         ))}
@@ -122,27 +108,21 @@ function HorizontalEvent(props: any) {
   return (
     <>
       {events.map((it: any, idx: number) => (
-        <Grid item xs={12}>
+        <Grid key={idx} item xs={12}>
           {mapHorizontalEvents(it, idx % 2 === 0)}
         </Grid>
       ))}
     </>
   );
-}
+};
 
-function SingleEvent(props: any) {
-  let { event } = props;
-
-  return (
+const SingleEvent = ({ event }: any) => (
     <Grid item xs={12}>
-      <EventContent>{event}</EventContent>
+        <EventContent>{event}</EventContent>
     </Grid>
-  );
-}
+);
 
-function DayEvent(props: any) {
-  let { event } = props;
-
+function DayEvent({ event }: any) {
   if (event.type === "single") return <SingleEvent {...event} />;
   if (event.type === "vertical") return <VerticalEvent {...event} />;
   if (event.type === "horizontal") return <HorizontalEvent {...event} />;
@@ -150,58 +130,47 @@ function DayEvent(props: any) {
   return <div>Unknown event type</div>;
 }
 
-function DayInfo(props: any) {
-  let { time, order, event } = props;
-
-  return (
+const DayInfo = ({ time, order, event }: any) => (
     <div>
       <h3>
         {order} Пара (Початок {time})
       </h3>
-
       <Grid container>
         <DayEvent event={event}></DayEvent>
       </Grid>
     </div>
-  );
-}
+);
 
-function Day(props: any) {
-  let { day, events } = props;
-
-  return (
+const Day = ({ day, events }: any) => (
     <div>
       <h2>{day}</h2>
 
       {events.map((it: any) => (
-        <DayInfo key={it.time} {...it} />
+          <DayInfo key={it.time} {...it} />
       ))}
     </div>
-  );
-}
+);
 
-function Schedule(props: any) {
-  let { schedule } = props.schedule;
-
-  return (
+const  Schedule = ({ schedule }: any) => (
     <div>
       <h1>Розклад</h1>
       <>
-        {schedule.map((it: any) => (
-          <>
-            <Day key={it.day} day={it.day} events={it.events} />
+        {schedule.map(({ day, events }: any, idx: number) => (
+          <div key={idx}>
+            <Divider />
+            <Day key={day} day={day} events={events} />
             <br />
-          </>
+          </div>
         ))}
       </>
     </div>
   );
-}
+
 
 function App() {
   const [searchParams, setSearchParams] = useSearchParams();
-  let [group, setGroup] = useState<string | null>(searchParams.get("group"));
-  let [schedule, setSchedule] = useState<any>(null);
+  const [group, setGroup] = useState(searchParams.get("group"));
+  const [schedule, setSchedule] = useState(null);
 
   useEffect(() => {
     if (!group) return;
@@ -228,7 +197,7 @@ function App() {
 
         {schedule && (
           <Card variant="outlined" sx={{ padding: "10px" }}>
-            <Schedule schedule={{ schedule }} />
+            <Schedule schedule={schedule} />
           </Card>
         )}
       </Container>
