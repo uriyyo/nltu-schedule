@@ -43,14 +43,19 @@ jobs:
         run: |
           npm install
 
+      - name: Build UI
+        run: |
+          npm run build
+
       - name: Configure git
         run: |        
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
 
       - name: Deploy UI
-        run: |
-          npm run deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit changes
         env:
