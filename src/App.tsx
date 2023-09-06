@@ -242,7 +242,7 @@ const useGoToDay = () => {
       document
         .querySelector(`[data-week-day="${actualDay}"]`)
         ?.scrollIntoView({ behavior: "smooth" });
-    }, 5);
+    }, 100);
   };
 
   const goToDay = (day: AnyDay | null) => {
