@@ -14,7 +14,6 @@ jobs:
     strategy:
       matrix:
         python-version: [ "3.11" ]
-        node-version: [ "20.5.1" ]
 
     steps:
       - uses: actions/checkout@v3
@@ -23,11 +22,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
         run: |
@@ -39,24 +33,10 @@ jobs:
         run: |
           python sync_schedule.py
 
-      - name: Install UI deps
-        run: |
-          npm install
-
-      - name: Build UI
-        run: |
-          npm run build
-
       - name: Configure git
         run: |        
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-
-      - name: Deploy UI
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
 
       - name: Commit changes
         env:
