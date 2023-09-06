@@ -208,6 +208,14 @@ const useGoToDay = () => {
     searchParams.get("day") as AnyDay,
   );
 
+  const scrollToDay = (day: AnyDay) => {
+    const actualDay = getActualDay(day);
+
+    document
+      .querySelector(`[data-week-day="${actualDay}"]`)
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const goToDay = (day: AnyDay | null) => {
     if (!day) {
       searchParams.delete("day");
@@ -217,15 +225,14 @@ const useGoToDay = () => {
 
     setSearchParams(searchParams);
     setDay(day);
+
+    if (day) scrollToDay(day);
   };
 
   useEffect(() => {
     if (!day) return;
 
-    const actualDay = getActualDay(day);
-    document
-      .querySelector(`[data-week-day="${actualDay}"]`)
-      ?.scrollIntoView({ behavior: "smooth" });
+    scrollToDay(day);
   }, [day, searchParams, setSearchParams]);
 
   return { day, goToDay };
@@ -241,6 +248,10 @@ const DaysButtonGroup = ({
   const commonButtonArgs = { goToDay, schedule };
   const smallScreen = useMediaQuery("(max-width:720px)");
 
+  const buttonForDay = (day: AnyDay) => (
+    <GoToDayButton key={day} {...commonButtonArgs} day={day} />
+  );
+
   return (
     <div>
       <ButtonGroup
@@ -248,13 +259,8 @@ const DaysButtonGroup = ({
         variant="outlined"
         fullWidth={true}
       >
-        <GoToDayButton {...commonButtonArgs} day={RelativeDay.Today} />
-        <GoToDayButton {...commonButtonArgs} day={RelativeDay.Tomorrow} />
-        <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Monday} />
-        <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Tuesday} />
-        <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Wednesday} />
-        <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Thursday} />
-        <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Friday} />
+        {Object.values(RelativeDay).map(buttonForDay)}
+        {Object.values(DayOfWeek).map(buttonForDay)}
       </ButtonGroup>
     </div>
   );
