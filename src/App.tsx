@@ -24,6 +24,7 @@ import {
   VerticalDayEvent,
 } from "./types";
 import { useSearchParams } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 
 const xsSizeForArray = (arr: any[]) => 12 / arr.length;
 
@@ -293,7 +294,7 @@ const useGroup = (
     searchParams.set("group", group);
     setSearchParams(searchParams);
     setSchedule(allSchedules[group]?.schedule);
-  }, [group, searchParams, setSearchParams, setGroup]);
+  }, [group, searchParams, setSearchParams, allSchedules, setSchedule]);
 
   return { group, setGroup };
 };
@@ -305,6 +306,8 @@ function App() {
 
   return (
     <div className="App">
+      <ScrollToTop />
+
       <Container maxWidth="md">
         <h1>НЛТУ Розклад занять для спеціальностей КН, ІСТ, ІПЗ</h1>
 
