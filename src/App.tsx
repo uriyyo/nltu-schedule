@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Autocomplete,
   Box,
@@ -10,6 +10,7 @@ import {
   Grid,
   TextField,
   Typography,
+  Stack,
 } from "@mui/material";
 import data from "./data.json";
 import {
@@ -26,6 +27,7 @@ import {
 import { useSearchParams } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import CopyToClipboardButton from "./components/CopyToClipboardButton";
 
 const xsSizeForArray = (arr: any[]) => 12 / arr.length;
 
@@ -41,7 +43,7 @@ const getActualDay = (day: AnyDay): DayOfWeek | null => {
 };
 
 const isDayAvailable = (day: AnyDay, schedule: GroupSchedule[]) => {
-  let actualDay = getActualDay(day);
+  const actualDay = getActualDay(day);
   return actualDay && schedule.some((it) => it.day === actualDay);
 };
 
@@ -172,15 +174,37 @@ const DayInfo = ({ time, order, event }: ScheduleEvent) => (
   </div>
 );
 
-const Day = ({ day, events }: GroupSchedule) => (
-  <div>
-    <h2>{day}</h2>
+const useLinkForDay = () => {
+  const [searchParams] = useSearchParams();
 
-    {events.map((it: any) => (
-      <DayInfo key={it.time} {...it} />
-    ))}
-  </div>
-);
+  return useCallback(
+    (day: string) => {
+      const params = new URLSearchParams(searchParams);
+      params.set("day", day);
+
+      const [baseLink] = window.location.href.split("?");
+      return `${baseLink}?${params.toString()}`;
+    },
+    [searchParams],
+  );
+};
+
+const Day = ({ day, events }: GroupSchedule) => {
+  const getLinkForDay = useLinkForDay();
+
+  return (
+    <div>
+      <Stack direction={"row"} sx={{ justifyContent: "space-between" }}>
+        <h2>{day}</h2>
+        <CopyToClipboardButton link={getLinkForDay(day)} />
+      </Stack>
+
+      {events.map((it: any) => (
+        <DayInfo key={it.time} {...it} />
+      ))}
+    </div>
+  );
+};
 
 const GoToDayButton = ({
   day,
@@ -211,9 +235,12 @@ const useGoToDay = () => {
   const scrollToDay = (day: AnyDay) => {
     const actualDay = getActualDay(day);
 
-    document
-      .querySelector(`[data-week-day="${actualDay}"]`)
-      ?.scrollIntoView({ behavior: "smooth" });
+    // TODO: we should not use setTimeout here
+    setTimeout(() => {
+      document
+        .querySelector(`[data-week-day="${actualDay}"]`)
+        ?.scrollIntoView({ behavior: "smooth" });
+    }, 5);
   };
 
   const goToDay = (day: AnyDay | null) => {
@@ -230,6 +257,8 @@ const useGoToDay = () => {
   };
 
   useEffect(() => {
+    console.log("day", day);
+
     if (!day) return;
 
     scrollToDay(day);
@@ -340,9 +369,11 @@ function App() {
           disablePortal
           id="group"
           options={Object.keys(allSchedules)}
-          onInputChange={(event, value) => {
-            setGroup(value);
-            goToDay(null);
+          onChange={(event, value, reason) => {
+            if (reason === "selectOption") {
+              setGroup(value);
+              goToDay(null);
+            }
           }}
           renderInput={(params) => <TextField {...params} label="Група" />}
         />
