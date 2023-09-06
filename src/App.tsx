@@ -25,6 +25,7 @@ import {
 } from "./types";
 import { useSearchParams } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const xsSizeForArray = (arr: any[]) => 12 / arr.length;
 
@@ -230,7 +231,7 @@ const useGoToDay = () => {
   return { day, goToDay };
 };
 
-const Schedule = ({
+const DaysButtonGroup = ({
   schedule,
   goToDay,
 }: {
@@ -238,7 +239,34 @@ const Schedule = ({
   goToDay: (day: AnyDay) => any;
 }) => {
   const commonButtonArgs = { goToDay, schedule };
+  const smallScreen = useMediaQuery("(max-width:720px)");
 
+  return (
+    <div>
+      <ButtonGroup
+        orientation={smallScreen ? "vertical" : "horizontal"}
+        variant="outlined"
+        fullWidth={true}
+      >
+        <GoToDayButton {...commonButtonArgs} day={RelativeDay.Today} />
+        <GoToDayButton {...commonButtonArgs} day={RelativeDay.Tomorrow} />
+        <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Monday} />
+        <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Tuesday} />
+        <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Wednesday} />
+        <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Thursday} />
+        <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Friday} />
+      </ButtonGroup>
+    </div>
+  );
+};
+
+const Schedule = ({
+  schedule,
+  goToDay,
+}: {
+  schedule: GroupSchedule[];
+  goToDay: (day: AnyDay) => any;
+}) => {
   return (
     <div>
       <h1>Розклад</h1>
@@ -246,17 +274,7 @@ const Schedule = ({
       <Divider />
       <br />
 
-      <div>
-        <ButtonGroup variant="outlined" fullWidth={true}>
-          <GoToDayButton {...commonButtonArgs} day={RelativeDay.Today} />
-          <GoToDayButton {...commonButtonArgs} day={RelativeDay.Tomorrow} />
-          <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Monday} />
-          <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Tuesday} />
-          <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Wednesday} />
-          <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Thursday} />
-          <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Friday} />
-        </ButtonGroup>
-      </div>
+      <DaysButtonGroup goToDay={goToDay} schedule={schedule} />
 
       <br />
       <Divider />
