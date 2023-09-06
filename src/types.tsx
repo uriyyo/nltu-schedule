@@ -49,3 +49,18 @@ export interface SubEventMultiple {
 }
 
 type SubEvent = SubEventEmpty | SubEventSingle | SubEventMultiple;
+
+export enum DayOfWeek {
+  Monday = "Понеділок",
+  Tuesday = "Вівторок",
+  Wednesday = "Середа",
+  Thursday = "Четвер",
+  Friday = "Пятниця",
+}
+
+export enum RelativeDay {
+  Today = "Сьогодні",
+  Tomorrow = "Завтра",
+}
+
+export type AnyDay = DayOfWeek | RelativeDay;

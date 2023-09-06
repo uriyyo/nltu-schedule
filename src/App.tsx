@@ -1,26 +1,47 @@
 import React, { useEffect, useState } from "react";
 import {
+  Autocomplete,
+  Box,
+  Button,
+  ButtonGroup,
   Card,
   Container,
-  Autocomplete,
-  TextField,
-  Box,
-  Grid,
-  Typography,
   Divider,
+  Grid,
+  TextField,
+  Typography,
 } from "@mui/material";
 import data from "./data.json";
 import {
-  GroupsSchedules,
+  AnyDay,
+  DayOfWeek,
   GroupSchedule,
+  GroupsSchedules,
+  HorizontalDayEvent,
+  RelativeDay,
   ScheduleEvent,
   SingleDayEvent,
-  HorizontalDayEvent,
   VerticalDayEvent,
 } from "./types";
 import { useSearchParams } from "react-router-dom";
 
 const xsSizeForArray = (arr: any[]) => 12 / arr.length;
+
+const getActualDay = (day: AnyDay): DayOfWeek | null => {
+  switch (day) {
+    case RelativeDay.Today:
+      return Object.values(DayOfWeek)[new Date().getDay()] as DayOfWeek;
+    case RelativeDay.Tomorrow:
+      return Object.values(DayOfWeek)[new Date().getDay() + 1] as DayOfWeek;
+    default:
+      return Object.values(DayOfWeek).includes(day as DayOfWeek) ? day : null;
+  }
+};
+
+const isDayAvailable = (day: AnyDay, schedule: GroupSchedule[]) => {
+  let actualDay = getActualDay(day);
+  return actualDay && schedule.some((it) => it.day === actualDay);
+};
 
 const EventBox = ({
   children,
@@ -159,34 +180,128 @@ const Day = ({ day, events }: GroupSchedule) => (
   </div>
 );
 
-const Schedule = ({ schedule }: { schedule: GroupSchedule[] }) => (
-  <div>
-    <h1>Розклад</h1>
-    <>
-      {schedule.map(({ day, events }: any, idx: number) => (
-        <div key={idx}>
-          <Divider />
-          <Day key={day} day={day} events={events} />
-          <br />
-        </div>
-      ))}
-    </>
-  </div>
-);
+const GoToDayButton = ({
+  day,
+  goToDay,
+  schedule,
+}: {
+  day: AnyDay;
+  goToDay: (day: AnyDay) => any;
+  schedule: GroupSchedule[];
+}) => {
+  return (
+    <Button
+      color={"inherit"}
+      onClick={() => goToDay(day)}
+      disabled={!isDayAvailable(day, schedule)}
+    >
+      {day}
+    </Button>
+  );
+};
 
-function App() {
+const useGoToDay = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [day, setDay] = useState<AnyDay | null>(
+    searchParams.get("day") as AnyDay,
+  );
+
+  const goToDay = (day: AnyDay | null) => {
+    if (!day) {
+      searchParams.delete("day");
+    } else {
+      searchParams.set("day", day);
+    }
+
+    setSearchParams(searchParams);
+    setDay(day);
+  };
+
+  useEffect(() => {
+    if (!day) return;
+
+    const actualDay = getActualDay(day);
+    document
+      .querySelector(`[data-week-day="${actualDay}"]`)
+      ?.scrollIntoView({ behavior: "smooth" });
+  }, [day, searchParams, setSearchParams]);
+
+  return { day, goToDay };
+};
+
+const Schedule = ({
+  schedule,
+  goToDay,
+}: {
+  schedule: GroupSchedule[];
+  goToDay: (day: AnyDay) => any;
+}) => {
+  const commonButtonArgs = { goToDay, schedule };
+
+  return (
+    <div>
+      <h1>Розклад</h1>
+
+      <Divider />
+      <br />
+
+      <div>
+        <ButtonGroup variant="outlined" fullWidth={true}>
+          <GoToDayButton {...commonButtonArgs} day={RelativeDay.Today} />
+          <GoToDayButton {...commonButtonArgs} day={RelativeDay.Tomorrow} />
+          <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Monday} />
+          <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Tuesday} />
+          <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Wednesday} />
+          <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Thursday} />
+          <GoToDayButton {...commonButtonArgs} day={DayOfWeek.Friday} />
+        </ButtonGroup>
+      </div>
+
+      <br />
+      <Divider />
+
+      <>
+        {schedule.map(({ day, events }: any, idx: number) => (
+          <div data-week-day={day} key={idx}>
+            <Divider />
+            <Day key={day} day={day} events={events} />
+            <br />
+          </div>
+        ))}
+      </>
+    </div>
+  );
+};
+
+const useSchedule = () => {
+  const [schedule, setSchedule] = useState<GroupSchedule[] | null>(null);
+  const allSchedules: GroupsSchedules = data as GroupsSchedules;
+
+  return { schedule, setSchedule, allSchedules };
+};
+
+const useGroup = (
+  allSchedules: GroupsSchedules,
+  setSchedule: (arg: GroupSchedule[] | null) => any,
+) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [group, setGroup] = useState(searchParams.get("group"));
-  const [schedule, setSchedule] = useState<GroupSchedule[] | null>(null);
-
-  const allSchedules: GroupsSchedules = data as GroupsSchedules;
 
   useEffect(() => {
     if (!group) return;
 
-    setSearchParams({ group });
+    searchParams.set("group", group);
+    setSearchParams(searchParams);
     setSchedule(allSchedules[group]?.schedule);
-  }, [group, setSearchParams, allSchedules]);
+  }, [group, searchParams, setSearchParams, setGroup]);
+
+  return { group, setGroup };
+};
+
+function App() {
+  const { schedule, setSchedule, allSchedules } = useSchedule();
+  const { group, setGroup } = useGroup(allSchedules, setSchedule);
+  const { goToDay } = useGoToDay();
 
   return (
     <div className="App">
@@ -198,7 +313,10 @@ function App() {
           disablePortal
           id="group"
           options={Object.keys(allSchedules)}
-          onInputChange={(event, value) => setGroup(value)}
+          onInputChange={(event, value) => {
+            setGroup(value);
+            goToDay(null);
+          }}
           renderInput={(params) => <TextField {...params} label="Група" />}
         />
 
@@ -206,7 +324,7 @@ function App() {
 
         {schedule && (
           <Card variant="outlined" sx={{ padding: "10px" }}>
-            <Schedule schedule={schedule} />
+            <Schedule goToDay={goToDay} schedule={schedule} />
           </Card>
         )}
       </Container>
