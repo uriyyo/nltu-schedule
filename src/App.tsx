@@ -234,35 +234,47 @@ const useGoToDay = () => {
     searchParams.get("day") as AnyDay,
   );
 
-  const scrollToDay = (day: AnyDay) => {
+  const scrollToDay = useCallback((day: AnyDay) => {
     const actualDay = getActualDay(day);
 
-    // TODO: we should not use setTimeout here
-    setTimeout(() => {
-      document
-        .querySelector(`[data-week-day="${actualDay}"]`)
-        ?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
-  };
+    document
+      .querySelector(`[data-week-day="${actualDay}"]`)
+      ?.scrollIntoView({ behavior: "smooth" });
+  }, []);
 
-  const goToDay = (day: AnyDay | null) => {
-    if (!day) {
-      searchParams.delete("day");
-    } else {
-      searchParams.set("day", day);
-    }
+  const goToDay = useCallback(
+    (day: AnyDay | null) => {
+      if (!day) {
+        searchParams.delete("day");
+      } else {
+        searchParams.set("day", day);
+      }
 
-    setSearchParams(searchParams);
-    setDay(day);
+      setSearchParams(searchParams);
+      setDay(day);
 
-    if (day) scrollToDay(day);
-  };
+      if (day) scrollToDay(day);
+    },
+    [scrollToDay, searchParams, setSearchParams, setDay],
+  );
 
   useEffect(() => {
     if (!day) return;
 
     scrollToDay(day);
-  }, [day, searchParams, setSearchParams]);
+  }, [day, scrollToDay]);
+
+  // TODO: try to find a better way for initial scroll to selected day
+  const [inited, setInited] = useState(false);
+
+  useEffect(() => {
+    if (!inited) setInited(true);
+  }, [inited]);
+
+  useEffect(() => {
+    if (!inited) return;
+    goToDay(day);
+  }, [inited, day, goToDay]);
 
   return { day, goToDay };
 };
