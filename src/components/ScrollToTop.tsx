@@ -1,14 +1,14 @@
-import {Box, Fab, useScrollTrigger, Zoom,} from "@mui/material";
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-import React, {useCallback} from "react";
+import { Box, Fab, useScrollTrigger, Zoom } from "@mui/material";
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
+import React, { useCallback } from "react";
 
 export default function ScrollToTop() {
   const trigger = useScrollTrigger({
     threshold: 100,
-  })
+  });
   const scrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }, [])
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <Zoom in={trigger}>
       <Box
@@ -30,5 +30,5 @@ export default function ScrollToTop() {
         </Fab>
       </Box>
     </Zoom>
-  )
+  );
 }

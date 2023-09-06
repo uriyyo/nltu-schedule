@@ -32,13 +32,15 @@ import CopyToClipboardButton from "./components/CopyToClipboardButton";
 const xsSizeForArray = (arr: any[]) => 12 / arr.length;
 
 const getActualDay = (day: AnyDay): DayOfWeek | null => {
+  const days = Object.values(DayOfWeek);
+
   switch (day) {
     case RelativeDay.Today:
-      return Object.values(DayOfWeek)[new Date().getDay()] as DayOfWeek;
+      return days[new Date().getDay() - 1] as DayOfWeek;
     case RelativeDay.Tomorrow:
-      return Object.values(DayOfWeek)[new Date().getDay() + 1] as DayOfWeek;
+      return days[new Date().getDay()] as DayOfWeek;
     default:
-      return Object.values(DayOfWeek).includes(day as DayOfWeek) ? day : null;
+      return days.includes(day as DayOfWeek) ? day : null;
   }
 };
 
@@ -257,8 +259,6 @@ const useGoToDay = () => {
   };
 
   useEffect(() => {
-    console.log("day", day);
-
     if (!day) return;
 
     scrollToDay(day);
