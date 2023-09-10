@@ -11,6 +11,7 @@ import {
   TextField,
   Typography,
   Stack,
+  useTheme,
 } from "@mui/material";
 import data from "./data.json";
 import {
@@ -28,8 +29,28 @@ import { useSearchParams } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CopyToClipboardButton from "./components/CopyToClipboardButton";
+import { grey } from "@mui/material/colors";
 
 const xsSizeForArray = (arr: any[]) => 12 / arr.length;
+
+const getWeekNumber = (d: Date): number => {
+  d = new Date(+d);
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+  const yearStart = new Date(d.getFullYear(), 0, 1);
+
+  // @ts-ignore
+  return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+};
+
+const isCurrentDayWeekend = () => [0, 6].includes(new Date().getDay());
+
+const isCurrentWeekNominator = () => {
+  const today = new Date();
+  const isNominator = getWeekNumber(today) % 2 === 0;
+
+  return isCurrentDayWeekend() ? !isNominator : isNominator;
+};
 
 const getActualDay = (day: AnyDay): DayOfWeek | null => {
   const days = Object.values(DayOfWeek);
@@ -52,17 +73,25 @@ const isDayAvailable = (day: AnyDay, schedule: GroupSchedule[]) => {
 const EventBox = ({
   children,
   nominator = true,
+  subEvent = false,
   halfHeight = false,
   empty = false,
   sx = {},
   ...rest
 }: any) => {
-  const color: string = empty ? "white" : nominator ? "#4db6ac" : "#b2dfdb";
+  const { palette } = useTheme();
+
+  const colorType =
+    !subEvent || nominator === isCurrentWeekNominator()
+      ? "primary"
+      : "secondary";
+
+  const color: string = empty ? "white" : palette[colorType].main;
 
   if (!empty) {
-    sx.borderColor = "#bdbdbd";
-    sx.border = "1 px";
-    sx["&:hover"] = { backgroundColor: nominator ? "#26a69a" : "#80cbc4" };
+    sx.borderColor = grey[500];
+    sx.border = 1;
+    sx["&:hover"] = { backgroundColor: palette[colorType].contrastText };
   }
 
   return (
@@ -71,8 +100,8 @@ const EventBox = ({
       sx={{
         backgroundColor: color,
         height: halfHeight ? "100px" : "200px",
-        margin: "10px",
-        borderRadius: "10px",
+        margin: 1,
+        borderRadius: 5,
         ...sx,
       }}
     >
@@ -120,7 +149,11 @@ const HorizontalEventInfo = ({ events }: Partial<HorizontalDayEvent>) => {
       return <EventBox halfHeight={true} nominator={nominator} empty={true} />;
     if (type === "single")
       return (
-        <EventContentInfo halfHeight={true} nominator={nominator}>
+        <EventContentInfo
+          subEvent={true}
+          halfHeight={true}
+          nominator={nominator}
+        >
           {event}
         </EventContentInfo>
       );
@@ -130,7 +163,9 @@ const HorizontalEventInfo = ({ events }: Partial<HorizontalDayEvent>) => {
         {events.map((it: any, idx: number) => (
           <Grid key={idx} xs={xsSizeForArray(events)}>
             {it ? (
-              <EventContentInfo nominator={nominator}>{it}</EventContentInfo>
+              <EventContentInfo subEvent={true} nominator={nominator}>
+                {it}
+              </EventContentInfo>
             ) : (
               <EventBox empty={true} />
             )}
@@ -307,6 +342,20 @@ const DaysButtonGroup = ({
   );
 };
 
+const ScheduleWeekTypeInfo = () => (
+  <Typography variant="h6" component="div" gutterBottom>
+    {isCurrentDayWeekend() ? <span>Наступний</span> : <span>Поточний</span>}
+
+    <span> тиждень за </span>
+
+    {isCurrentWeekNominator() ? (
+      <span>чисельником</span>
+    ) : (
+      <span>знаменником</span>
+    )}
+  </Typography>
+);
+
 const Schedule = ({
   schedule,
   goToDay,
@@ -317,6 +366,11 @@ const Schedule = ({
   return (
     <div>
       <h1>Розклад</h1>
+
+      <Divider />
+      <br />
+
+      <ScheduleWeekTypeInfo />
 
       <Divider />
       <br />
