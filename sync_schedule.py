@@ -56,6 +56,7 @@ def get_schedule_df() -> pd.DataFrame:
 
     df = df.ffill()
     df["day"] = df["day"].str.replace("\n", "").ffill()
+    df["day"] = df["day"].apply(lambda d: d.title())
     df["time"] = df["time"].apply(lambda x: tuple(x.split("_")))
     df = df.replace(EMPTY_CELL, None)
 
