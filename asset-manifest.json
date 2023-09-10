@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/nltu-schedule/static/js/main.0f14fb36.js",
+    "main.js": "/nltu-schedule/static/js/main.d3c17176.js",
     "index.html": "/nltu-schedule/index.html",
-    "main.0f14fb36.js.map": "/nltu-schedule/static/js/main.0f14fb36.js.map"
+    "main.d3c17176.js.map": "/nltu-schedule/static/js/main.d3c17176.js.map"
   },
   "entrypoints": [
-    "static/js/main.0f14fb36.js"
+    "static/js/main.d3c17176.js"
   ]
 }
