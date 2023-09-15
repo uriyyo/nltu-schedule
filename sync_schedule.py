@@ -22,6 +22,13 @@ EVENT_START_TIMES = [
     "14:30",
     "16:20",
 ]
+EVENT_END_TIMES = [
+    "10:05",
+    "11:55",
+    "13:45",
+    "16:05",
+    "17:35",
+]
 DAYS = [
     "Понеділок",
     "Вівторок",
@@ -100,7 +107,10 @@ def normalize_event(odd: list[str], even: list[str]) -> dict[str, Any] | None:
 
         return {
             "type": "vertical",
-            "events": [{"type": "single", "event": val} if val else {"type": "empty"} for val in odd],
+            "events": [
+                {"type": "single", "event": val} if val else {"type": "empty"}
+                for val in odd
+            ],
         }
 
     if any(x == y for x, y in zip(odd, even)):
@@ -130,7 +140,7 @@ def get_group_schedule(df: pd.DataFrame, group: str, subgroups: list[str]) -> An
     for day, times in days.items():
         day_events = [
             {
-                "time": time,
+                "time": f"{time} - {EVENT_END_TIMES[EVENT_START_TIMES.index(time)]}",
                 "order": EVENT_START_TIMES.index(time) + 1,
                 "event": event,
             }

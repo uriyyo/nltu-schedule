@@ -10,7 +10,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -27,7 +27,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -44,7 +44,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -52,7 +52,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "horizontal",
@@ -73,7 +73,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -81,7 +81,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -89,7 +89,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -97,7 +97,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -114,7 +114,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -136,7 +136,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -152,7 +152,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "horizontal",
@@ -174,7 +174,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -190,7 +190,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -206,7 +206,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -214,7 +214,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -222,7 +222,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -243,7 +243,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -265,7 +265,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -282,7 +282,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -299,7 +299,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -320,7 +320,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -328,7 +328,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -336,7 +336,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -344,7 +344,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -352,7 +352,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "horizontal",
@@ -373,7 +373,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -389,7 +389,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -405,7 +405,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "horizontal",
@@ -427,7 +427,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -443,7 +443,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -459,7 +459,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -467,7 +467,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -484,7 +484,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "single",
@@ -497,7 +497,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -505,7 +505,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -535,7 +535,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -551,7 +551,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -559,7 +559,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -576,7 +576,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -598,7 +598,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -606,7 +606,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "horizontal",
@@ -627,7 +627,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -644,7 +644,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -652,7 +652,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -660,7 +660,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -682,7 +682,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -698,7 +698,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -714,7 +714,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -722,7 +722,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "single",
@@ -735,7 +735,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -752,7 +752,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -760,7 +760,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -791,7 +791,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -808,7 +808,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -816,7 +816,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -833,7 +833,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "horizontal",
@@ -854,7 +854,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -870,7 +870,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -886,7 +886,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -903,7 +903,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -920,7 +920,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -941,7 +941,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -949,7 +949,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -957,7 +957,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -974,7 +974,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -995,7 +995,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -1011,7 +1011,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -1019,7 +1019,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "single",
@@ -1032,7 +1032,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -1040,7 +1040,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -1063,7 +1063,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -1079,7 +1079,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -1100,7 +1100,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -1124,7 +1124,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -1144,7 +1144,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -1161,7 +1161,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -1182,7 +1182,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -1198,7 +1198,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -1219,7 +1219,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -1243,7 +1243,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -1264,7 +1264,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -1281,7 +1281,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -1302,7 +1302,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -1322,7 +1322,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -1346,7 +1346,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -1366,7 +1366,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -1387,7 +1387,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -1409,7 +1409,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -1426,7 +1426,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -1442,7 +1442,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -1450,7 +1450,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -1471,7 +1471,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -1491,7 +1491,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -1507,7 +1507,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -1523,7 +1523,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -1544,7 +1544,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -1552,7 +1552,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -1569,7 +1569,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "horizontal",
@@ -1585,7 +1585,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -1606,7 +1606,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -1623,7 +1623,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -1640,7 +1640,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -1661,7 +1661,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -1691,7 +1691,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -1707,7 +1707,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -1723,7 +1723,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -1744,7 +1744,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -1763,7 +1763,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -1780,7 +1780,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "horizontal",
@@ -1804,7 +1804,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -1812,7 +1812,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -1828,7 +1828,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "horizontal",
@@ -1852,7 +1852,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -1869,7 +1869,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -1886,7 +1886,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -1902,7 +1902,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "horizontal",
@@ -1926,7 +1926,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -1946,7 +1946,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -1965,7 +1965,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -1998,7 +1998,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -2014,7 +2014,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -2035,7 +2035,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -2054,7 +2054,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -2071,7 +2071,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "horizontal",
@@ -2095,7 +2095,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -2103,7 +2103,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -2119,7 +2119,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -2135,7 +2135,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "horizontal",
@@ -2159,7 +2159,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -2176,7 +2176,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -2196,7 +2196,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -2216,7 +2216,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -2232,7 +2232,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "horizontal",
@@ -2256,7 +2256,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -2272,7 +2272,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -2301,7 +2301,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -2309,7 +2309,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -2330,7 +2330,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -2347,7 +2347,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -2355,7 +2355,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "horizontal",
@@ -2376,7 +2376,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -2389,7 +2389,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -2406,7 +2406,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -2423,7 +2423,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -2440,7 +2440,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "horizontal",
@@ -2461,7 +2461,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -2491,7 +2491,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -2508,7 +2508,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -2521,7 +2521,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -2537,7 +2537,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -2554,7 +2554,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -2570,7 +2570,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "horizontal",
@@ -2587,7 +2587,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -2608,7 +2608,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -2624,7 +2624,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -2641,7 +2641,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -2649,7 +2649,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "horizontal",
@@ -2666,7 +2666,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -2687,7 +2687,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -2703,7 +2703,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -2719,7 +2719,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -2727,7 +2727,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -2749,7 +2749,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -2757,7 +2757,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -2773,7 +2773,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -2803,7 +2803,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -2820,7 +2820,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -2837,7 +2837,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -2845,7 +2845,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -2867,7 +2867,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -2883,7 +2883,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -2900,7 +2900,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -2916,7 +2916,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -2933,7 +2933,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -2955,7 +2955,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -2971,7 +2971,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -2979,7 +2979,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -2995,7 +2995,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -3016,7 +3016,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -3032,7 +3032,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -3048,7 +3048,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -3064,7 +3064,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -3085,7 +3085,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -3115,7 +3115,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -3132,7 +3132,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -3140,7 +3140,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -3148,7 +3148,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "single",
@@ -3161,7 +3161,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -3177,7 +3177,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -3185,7 +3185,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -3201,7 +3201,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -3209,7 +3209,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "single",
@@ -3222,7 +3222,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -3238,7 +3238,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -3251,7 +3251,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -3267,7 +3267,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -3275,7 +3275,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -3283,7 +3283,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -3305,7 +3305,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -3322,7 +3322,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -3344,7 +3344,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -3352,7 +3352,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -3369,7 +3369,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -3377,7 +3377,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -3385,7 +3385,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "horizontal",
@@ -3406,7 +3406,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -3414,7 +3414,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -3422,7 +3422,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "horizontal",
@@ -3439,7 +3439,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -3460,7 +3460,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -3476,7 +3476,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -3484,7 +3484,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -3500,7 +3500,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -3521,7 +3521,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -3529,7 +3529,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -3545,7 +3545,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -3574,7 +3574,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -3582,7 +3582,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -3595,7 +3595,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -3611,7 +3611,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -3619,7 +3619,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -3627,7 +3627,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -3640,7 +3640,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -3648,7 +3648,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -3656,7 +3656,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -3664,7 +3664,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -3677,7 +3677,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -3685,7 +3685,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -3701,7 +3701,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -3709,7 +3709,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "single",
@@ -3722,7 +3722,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -3730,7 +3730,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -3752,7 +3752,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -3768,7 +3768,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -3785,7 +3785,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -3806,7 +3806,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -3822,7 +3822,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -3839,7 +3839,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -3861,7 +3861,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -3877,7 +3877,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -3893,7 +3893,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -3909,7 +3909,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -3926,7 +3926,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -3947,7 +3947,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -3964,7 +3964,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -3981,7 +3981,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -3997,7 +3997,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -4018,7 +4018,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -4035,7 +4035,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -4056,7 +4056,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -4073,7 +4073,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -4089,7 +4089,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -4097,7 +4097,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "single",
@@ -4110,7 +4110,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -4127,7 +4127,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -4135,7 +4135,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -4143,7 +4143,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -4156,7 +4156,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -4164,7 +4164,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "horizontal",
@@ -4180,7 +4180,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "single",
@@ -4193,7 +4193,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -4210,7 +4210,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -4223,7 +4223,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -4252,7 +4252,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -4260,7 +4260,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -4273,7 +4273,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -4289,7 +4289,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -4306,7 +4306,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -4322,7 +4322,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "horizontal",
@@ -4344,7 +4344,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -4352,7 +4352,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "horizontal",
@@ -4369,7 +4369,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "single",
@@ -4382,7 +4382,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -4390,7 +4390,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -4398,7 +4398,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -4406,7 +4406,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -4419,7 +4419,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -4427,7 +4427,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -4449,7 +4449,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -4466,7 +4466,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -4483,7 +4483,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -4491,7 +4491,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -4513,7 +4513,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -4529,7 +4529,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -4546,7 +4546,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -4568,7 +4568,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -4584,7 +4584,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -4592,7 +4592,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -4609,7 +4609,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -4631,7 +4631,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "horizontal",
@@ -4647,7 +4647,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -4668,7 +4668,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -4684,7 +4684,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -4700,7 +4700,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -4732,7 +4732,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "horizontal",
@@ -4749,7 +4749,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -4766,7 +4766,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -4774,7 +4774,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "horizontal",
@@ -4795,7 +4795,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -4803,7 +4803,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -4824,7 +4824,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -4845,7 +4845,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -4853,7 +4853,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -4877,7 +4877,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -4885,7 +4885,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -4893,7 +4893,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "horizontal",
@@ -4915,7 +4915,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -4934,7 +4934,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -4954,7 +4954,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -4962,7 +4962,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -4987,7 +4987,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "single",
@@ -5010,7 +5010,7 @@
                 "day": "Понеділок",
                 "events": [
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "vertical",
@@ -5030,7 +5030,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -5038,7 +5038,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -5063,7 +5063,7 @@
                 "day": "Вівторок",
                 "events": [
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",
@@ -5084,7 +5084,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -5092,7 +5092,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -5117,7 +5117,7 @@
                 "day": "Середа",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -5136,7 +5136,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -5144,7 +5144,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "single",
@@ -5152,7 +5152,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "vertical",
@@ -5173,7 +5173,7 @@
                         }
                     },
                     {
-                        "time": "16:20",
+                        "time": "16:20 - 17:35",
                         "order": 5,
                         "event": {
                             "type": "vertical",
@@ -5198,7 +5198,7 @@
                 "day": "Четвер",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -5219,7 +5219,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -5227,7 +5227,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "horizontal",
@@ -5244,7 +5244,7 @@
                         }
                     },
                     {
-                        "time": "14:30",
+                        "time": "14:30 - 16:05",
                         "order": 4,
                         "event": {
                             "type": "single",
@@ -5257,7 +5257,7 @@
                 "day": "Пятниця",
                 "events": [
                     {
-                        "time": "08:30",
+                        "time": "08:30 - 10:05",
                         "order": 1,
                         "event": {
                             "type": "vertical",
@@ -5277,7 +5277,7 @@
                         }
                     },
                     {
-                        "time": "10:20",
+                        "time": "10:20 - 11:55",
                         "order": 2,
                         "event": {
                             "type": "single",
@@ -5285,7 +5285,7 @@
                         }
                     },
                     {
-                        "time": "12:10",
+                        "time": "12:10 - 13:45",
                         "order": 3,
                         "event": {
                             "type": "vertical",

@@ -203,11 +203,30 @@ const DayEventInfo = ({ event }: Partial<ScheduleEvent>) => {
 const DayInfo = ({ time, order, event }: ScheduleEvent) => (
   <div>
     <h3>
-      {order} Пара (Початок {time})
+      {order} Пара ({time})
     </h3>
-    <Grid container>
-      <DayEventInfo event={event}></DayEventInfo>
-    </Grid>
+    <Stack direction={"row"}>
+      <Stack width={"5%"}>
+        {["Ч", "З"].map((it) => (
+          <EventBox
+            halfHeight={true}
+            empty={true}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography textAlign={"center"} variant={"h5"}>
+              {it}
+            </Typography>
+          </EventBox>
+        ))}
+      </Stack>
+      <Grid container width={"95%"}>
+        <DayEventInfo event={event}></DayEventInfo>
+      </Grid>
+    </Stack>
   </div>
 );
 
