@@ -204,11 +204,28 @@ const DayEventInfo = ({ event }: Partial<ScheduleEvent>) => {
   return <div>Unknown event type</div>;
 };
 
-const DayInfo = ({ time, order, event }: ScheduleEvent) => (
+const DayInfo = ({
+  time,
+  order,
+  event,
+  subGroups,
+}: ScheduleEvent & { subGroups?: string[] | null }) => (
   <div>
-    <h3>
+    <Typography textAlign={"start"} variant={"h6"}>
       {order} Пара ({time})
-    </h3>
+    </Typography>
+
+    <Stack direction={"row"}>
+      <Stack width={"5%"}></Stack>
+      <Stack width={"95%"} direction={"row"}>
+        {subGroups?.map((it) => (
+          <Typography width={"50%"} textAlign={"center"} variant={"h6"}>
+            {it}
+          </Typography>
+        ))}
+      </Stack>
+    </Stack>
+
     <Stack direction={"row"}>
       <Stack width={"5%"}>
         {["Ч", "З"].map((it) => (
@@ -221,7 +238,7 @@ const DayInfo = ({ time, order, event }: ScheduleEvent) => (
               justifyContent: "center",
             }}
           >
-            <Typography textAlign={"center"} variant={"h5"}>
+            <Typography textAlign={"center"} variant={"h6"}>
               {it}
             </Typography>
           </EventBox>
@@ -249,7 +266,11 @@ const useLinkForDay = () => {
   );
 };
 
-const Day = ({ day, events }: GroupSchedule) => {
+const Day = ({
+  day,
+  events,
+  subGroups,
+}: GroupSchedule & { subGroups?: string[] | null }) => {
   const getLinkForDay = useLinkForDay();
 
   return (
@@ -260,7 +281,7 @@ const Day = ({ day, events }: GroupSchedule) => {
       </Stack>
 
       {events.map((it: any) => (
-        <DayInfo key={it.time} {...it} />
+        <DayInfo key={it.time} subGroups={subGroups} {...it} />
       ))}
     </div>
   );
@@ -382,9 +403,11 @@ const ScheduleWeekTypeInfo = () => (
 const Schedule = ({
   schedule,
   goToDay,
+  subGroups,
 }: {
   schedule: GroupSchedule[];
   goToDay: (day: AnyDay) => any;
+  subGroups?: string[] | null;
 }) => {
   return (
     <div>
@@ -407,7 +430,7 @@ const Schedule = ({
         {schedule.map(({ day, events }: any, idx: number) => (
           <div data-week-day={day} key={idx}>
             <Divider />
-            <Day key={day} day={day} events={events} />
+            <Day key={day} day={day} subGroups={subGroups} events={events} />
             <br />
           </div>
         ))}
@@ -429,6 +452,7 @@ const useGroup = (
 ) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [group, setGroup] = useState(searchParams.get("group"));
+  const [subGroups, setSubGroups] = useState<string[] | null>(null);
 
   useEffect(() => {
     if (!group) return;
@@ -436,14 +460,15 @@ const useGroup = (
     searchParams.set("group", group);
     setSearchParams(searchParams);
     setSchedule(allSchedules[group]?.schedule);
+    setSubGroups(allSchedules[group]?.subgroups || null);
   }, [group, searchParams, setSearchParams, allSchedules, setSchedule]);
 
-  return { group, setGroup };
+  return { group, setGroup, subGroups };
 };
 
 function App() {
   const { schedule, setSchedule, allSchedules } = useSchedule();
-  const { group, setGroup } = useGroup(allSchedules, setSchedule);
+  const { group, setGroup, subGroups } = useGroup(allSchedules, setSchedule);
   const { goToDay } = useGoToDay();
 
   return (
@@ -471,7 +496,11 @@ function App() {
 
         {schedule && (
           <Card variant="outlined" sx={{ padding: "10px" }}>
-            <Schedule goToDay={goToDay} schedule={schedule} />
+            <Schedule
+              goToDay={goToDay}
+              subGroups={subGroups}
+              schedule={schedule}
+            />
           </Card>
         )}
       </Container>
