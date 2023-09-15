@@ -113,12 +113,6 @@ def normalize_event(odd: list[str], even: list[str]) -> dict[str, Any] | None:
             ],
         }
 
-    if any(x == y for x, y in zip(odd, even)):
-        return {
-            "type": "horizontal",
-            "events": [normalize_subevents([x, y]) for x, y in zip(odd, even)],
-        }
-
     return {
         "type": "horizontal",
         "events": [
@@ -134,7 +128,7 @@ def get_group_schedule(df: pd.DataFrame, group: str, subgroups: list[str]) -> An
 
     for _, day, (time, week), *rest in df.itertuples():
         for event in rest:
-            days[day][time][int(week != "ч")].append(event)
+            days[day][time][int(week != "ч")].append(event and event.strip())
 
     result = []
     for day, times in days.items():

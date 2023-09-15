@@ -163,7 +163,11 @@ const HorizontalEventInfo = ({ events }: Partial<HorizontalDayEvent>) => {
         {events.map((it: any, idx: number) => (
           <Grid key={idx} xs={xsSizeForArray(events)}>
             {it ? (
-              <EventContentInfo subEvent={true} nominator={nominator}>
+              <EventContentInfo
+                halfHeight={events.length > 1}
+                subEvent={true}
+                nominator={nominator}
+              >
                 {it}
               </EventContentInfo>
             ) : (
