@@ -144,6 +144,7 @@ const HorizontalEventInfo = ({ events }: Partial<HorizontalDayEvent>) => {
   const mapHorizontalEvents = (
     { type, event, events }: any,
     nominator: boolean,
+    isHalfEvent: boolean,
   ) => {
     if (type === "empty")
       return <EventBox halfHeight={true} nominator={nominator} empty={true} />;
@@ -161,17 +162,17 @@ const HorizontalEventInfo = ({ events }: Partial<HorizontalDayEvent>) => {
     return (
       <Grid container>
         {events.map((it: any, idx: number) => (
-          <Grid key={idx} xs={xsSizeForArray(events)}>
+          <Grid item key={idx} xs={xsSizeForArray(events)}>
             {it ? (
               <EventContentInfo
-                halfHeight={events.length > 1}
                 subEvent={true}
+                halfHeight={isHalfEvent}
                 nominator={nominator}
               >
                 {it}
               </EventContentInfo>
             ) : (
-              <EventBox empty={true} />
+              <EventBox halfHeight={isHalfEvent} empty={true} />
             )}
           </Grid>
         ))}
@@ -182,8 +183,8 @@ const HorizontalEventInfo = ({ events }: Partial<HorizontalDayEvent>) => {
   return (
     <>
       {events?.map((it: any, idx: number) => (
-        <Grid key={idx} item xs={12}>
-          {mapHorizontalEvents(it, idx % 2 === 0)}
+        <Grid item key={idx} xs={12}>
+          {mapHorizontalEvents(it, idx % 2 === 0, events?.length > 1)}
         </Grid>
       ))}
     </>
@@ -487,6 +488,8 @@ const preFilterScheduleBySubGroup = (
       dayEvent.event.events = dayEvent.event.events.map((it) => {
         if (it.type === "multiple") {
           it.events = [it.events[subGroupIdx]];
+
+          if (it.events.every((x) => !x)) return { type: "empty" };
         }
         return it;
       });
