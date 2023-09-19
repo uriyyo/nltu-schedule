@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
   Autocomplete,
   Box,
@@ -31,7 +31,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import CopyToClipboardButton from "./components/CopyToClipboardButton";
 import { grey } from "@mui/material/colors";
 
-const xsSizeForArray = (arr: any[]) => 12 / arr.length;
+const xsSizeForArray = (arr: any[] | undefined) => 12 / (arr?.length ?? 1);
 
 const getWeekNumber = (d: Date): number => {
   d = new Date(+d);
@@ -204,52 +204,57 @@ const DayEventInfo = ({ event }: Partial<ScheduleEvent>) => {
   return <div>Unknown event type</div>;
 };
 
-const DayInfo = ({
-  time,
-  order,
-  event,
-  subGroups,
-}: ScheduleEvent & { subGroups?: string[] | null }) => (
-  <div>
-    <Typography textAlign={"start"} variant={"h6"}>
-      {order} Пара ({time})
-    </Typography>
+const DayInfo = ({ time, order, event }: ScheduleEvent) => {
+  return (
+    <div>
+      <Typography textAlign={"start"} variant={"h6"}>
+        {order} Пара ({time})
+      </Typography>
 
-    <Stack direction={"row"}>
-      <Stack width={"5%"}></Stack>
-      <Stack width={"95%"} direction={"row"}>
-        {subGroups?.map((it) => (
-          <Typography width={"50%"} textAlign={"center"} variant={"h6"}>
-            {it}
-          </Typography>
-        ))}
-      </Stack>
-    </Stack>
-
-    <Stack direction={"row"}>
-      <Stack width={"5%"}>
-        {["Ч", "З"].map((it) => (
-          <EventBox
-            halfHeight={true}
-            empty={true}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Typography textAlign={"center"} variant={"h6"}>
+      {/* TODO: not sure if we need this
+      <Stack direction={"row"}>
+        <Stack width={"5%"}></Stack>
+        <Stack width={"95%"} direction={"row"}>
+          {subGroups?.map((it: any, idx: number) => (
+            <Typography
+              key={idx}
+              width={"50%"}
+              textAlign={"center"}
+              variant={"h6"}
+            >
               {it}
             </Typography>
-          </EventBox>
-        ))}
+          ))}
+        </Stack>
       </Stack>
-      <Grid container width={"95%"}>
-        <DayEventInfo event={event}></DayEventInfo>
-      </Grid>
-    </Stack>
-  </div>
-);
+      */}
+
+      <Stack direction={"row"}>
+        <Stack width={"5%"}>
+          {["Ч", "З"].map((it) => (
+            <EventBox
+              key={it}
+              halfHeight={true}
+              empty={true}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Typography textAlign={"center"} variant={"h6"}>
+                {it}
+              </Typography>
+            </EventBox>
+          ))}
+        </Stack>
+        <Grid container width={"95%"}>
+          <DayEventInfo event={event}></DayEventInfo>
+        </Grid>
+      </Stack>
+    </div>
+  );
+};
 
 const useLinkForDay = () => {
   const [searchParams] = useSearchParams();
@@ -280,8 +285,8 @@ const Day = ({
         <CopyToClipboardButton link={getLinkForDay(day)} />
       </Stack>
 
-      {events.map((it: any) => (
-        <DayInfo key={it.time} subGroups={subGroups} {...it} />
+      {events.map((it: any, idx: number) => (
+        <DayInfo key={idx} subGroups={subGroups} {...it} />
       ))}
     </div>
   );
@@ -289,13 +294,13 @@ const Day = ({
 
 const GoToDayButton = ({
   day,
-  goToDay,
   schedule,
 }: {
   day: AnyDay;
-  goToDay: (day: AnyDay) => any;
   schedule: GroupSchedule[];
 }) => {
+  const { goToDay } = useContext(AppContext);
+
   return (
     <Button
       color={"inherit"}
@@ -358,14 +363,35 @@ const useGoToDay = () => {
   return { day, goToDay };
 };
 
-const DaysButtonGroup = ({
-  schedule,
-  goToDay,
-}: {
-  schedule: GroupSchedule[];
-  goToDay: (day: AnyDay) => any;
-}) => {
-  const commonButtonArgs = { goToDay, schedule };
+const SubGroupsButtonGroup = () => {
+  const { group, subGroups, subGroup, setSubGroup } = useContext(AppContext);
+
+  return (
+    <ButtonGroup variant="outlined" fullWidth={true}>
+      <Button
+        color={"inherit"}
+        onClick={() => setSubGroup(null)}
+        disabled={subGroup === null}
+      >
+        {group}
+      </Button>
+
+      {subGroups?.map((it: any, idx: number) => (
+        <Button
+          key={idx}
+          color={"inherit"}
+          onClick={() => setSubGroup(it)}
+          disabled={subGroup === it}
+        >
+          {it}
+        </Button>
+      ))}
+    </ButtonGroup>
+  );
+};
+
+const DaysButtonGroup = ({ schedule }: { schedule: GroupSchedule[] }) => {
+  const commonButtonArgs = { schedule };
   const smallScreen = useMediaQuery("(max-width:720px)");
 
   const buttonForDay = (day: AnyDay) => (
@@ -400,18 +426,12 @@ const ScheduleWeekTypeInfo = () => (
   </Typography>
 );
 
-const Schedule = ({
-  schedule,
-  goToDay,
-  subGroups,
-}: {
-  schedule: GroupSchedule[];
-  goToDay: (day: AnyDay) => any;
-  subGroups?: string[] | null;
-}) => {
+const Schedule = ({ schedule }: { schedule: GroupSchedule[] }) => {
+  const { group, subGroup } = useContext(AppContext);
+
   return (
     <div>
-      <h1>Розклад</h1>
+      <h1>Розклад для {subGroup ?? group}</h1>
 
       <Divider />
       <br />
@@ -421,7 +441,12 @@ const Schedule = ({
       <Divider />
       <br />
 
-      <DaysButtonGroup goToDay={goToDay} schedule={schedule} />
+      <SubGroupsButtonGroup />
+
+      <Divider />
+      <br />
+
+      <DaysButtonGroup schedule={schedule} />
 
       <br />
       <Divider />
@@ -430,7 +455,7 @@ const Schedule = ({
         {schedule.map(({ day, events }: any, idx: number) => (
           <div data-week-day={day} key={idx}>
             <Divider />
-            <Day key={day} day={day} subGroups={subGroups} events={events} />
+            <Day key={day} day={day} events={events} />
             <br />
           </div>
         ))}
@@ -446,30 +471,117 @@ const useSchedule = () => {
   return { schedule, setSchedule, allSchedules };
 };
 
+const preFilterScheduleBySubGroup = (
+  schedule: GroupSchedule[],
+  subGroupIdx: number,
+): GroupSchedule[] => {
+  schedule = structuredClone(schedule);
+
+  const mapDayEvent = (dayEvent: ScheduleEvent) => {
+    if (dayEvent.event.type === "vertical") {
+      let event = dayEvent.event.events[subGroupIdx];
+      if (event.type === "empty") return null;
+
+      dayEvent.event.events = [event];
+    } else if (dayEvent.event.type === "horizontal") {
+      dayEvent.event.events = dayEvent.event.events.map((it) => {
+        if (it.type === "multiple") {
+          it.events = [it.events[subGroupIdx]];
+        }
+        return it;
+      });
+
+      if (dayEvent.event.events.every((it) => it.type === "empty")) return null;
+    }
+
+    return dayEvent;
+  };
+
+  for (const day of schedule) {
+    // @ts-ignore
+    day.events = day.events.map(mapDayEvent).filter((it) => it);
+  }
+
+  return schedule.filter((it) => it.events.length > 0);
+};
+
 const useGroup = (
   allSchedules: GroupsSchedules,
   setSchedule: (arg: GroupSchedule[] | null) => any,
+  goToDay: (arg: AnyDay | null) => any,
 ) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [group, setGroup] = useState(searchParams.get("group"));
   const [subGroups, setSubGroups] = useState<string[] | null>(null);
+  const [subGroup, setSubGroup] = useState<string | null>(
+    searchParams.get("subGroup"),
+  );
 
   useEffect(() => {
     if (!group) return;
 
+    let schedule = allSchedules[group]?.schedule;
+
+    if (schedule && subGroup) {
+      const subGroupIdx = allSchedules[group]?.subgroups?.indexOf(subGroup);
+      if (Number.isInteger(subGroupIdx) && subGroupIdx !== -1) {
+        schedule = preFilterScheduleBySubGroup(schedule, subGroupIdx);
+      }
+    }
+
     searchParams.set("group", group);
     setSearchParams(searchParams);
-    setSchedule(allSchedules[group]?.schedule);
+    setSchedule(schedule);
     setSubGroups(allSchedules[group]?.subgroups || null);
-  }, [group, searchParams, setSearchParams, allSchedules, setSchedule]);
 
-  return { group, setGroup, subGroups };
+    if (subGroup) searchParams.set("subGroup", subGroup);
+    else searchParams.delete("subGroup");
+
+    setSearchParams(searchParams);
+  }, [
+    group,
+    searchParams,
+    setSearchParams,
+    allSchedules,
+    setSchedule,
+    subGroup,
+  ]);
+
+  const setSubGroupResetDay = useCallback(
+    (subGroup: string | null) => {
+      setSubGroup(subGroup);
+      goToDay(null);
+    },
+    [setSubGroup, goToDay],
+  );
+
+  const setGroupResetSubGroup = useCallback(
+    (group: string | null) => {
+      setGroup(group);
+      setSubGroupResetDay(null);
+    },
+    [setGroup, setSubGroupResetDay],
+  );
+
+  return {
+    group,
+    setGroup: setGroupResetSubGroup,
+    subGroups,
+    subGroup,
+    setSubGroup: setSubGroupResetDay,
+  };
 };
+
+const AppContext = React.createContext<any | null>(null);
 
 function App() {
   const { schedule, setSchedule, allSchedules } = useSchedule();
-  const { group, setGroup, subGroups } = useGroup(allSchedules, setSchedule);
   const { goToDay } = useGoToDay();
+  const { group, setGroup, subGroups, subGroup, setSubGroup } = useGroup(
+    allSchedules,
+    setSchedule,
+    goToDay,
+  );
 
   return (
     <div className="App">
@@ -496,11 +608,11 @@ function App() {
 
         {schedule && (
           <Card variant="outlined" sx={{ padding: "10px" }}>
-            <Schedule
-              goToDay={goToDay}
-              subGroups={subGroups}
-              schedule={schedule}
-            />
+            <AppContext.Provider
+              value={{ group, subGroups, subGroup, setSubGroup, goToDay }}
+            >
+              <Schedule schedule={schedule} />
+            </AppContext.Provider>
           </Card>
         )}
       </Container>
