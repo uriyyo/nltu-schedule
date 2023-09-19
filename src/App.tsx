@@ -558,9 +558,11 @@ const useGroup = (
   const setGroupResetSubGroup = useCallback(
     (group: string | null) => {
       setGroup(group);
+      setSchedule(null);
+      setSubGroups(null);
       setSubGroupResetDay(null);
     },
-    [setGroup, setSubGroupResetDay],
+    [setGroup, setSubGroups, setSchedule, setSubGroupResetDay],
   );
 
   return {
@@ -598,6 +600,9 @@ function App() {
           onChange={(event, value, reason) => {
             if (reason === "selectOption") {
               setGroup(value);
+              goToDay(null);
+            } else if (reason === "clear") {
+              setGroup(null);
               goToDay(null);
             }
           }}
