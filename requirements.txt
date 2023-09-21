@@ -1,3 +1,6 @@
+uvicorn
+uvloop
+fastapi
 httpx
 pandas
 black
