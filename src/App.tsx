@@ -265,6 +265,7 @@ const useLinkForDay = () => {
   return useCallback(
     (day: string) => {
       const params = new URLSearchParams(searchParams);
+      prepareSearchParams(params);
       params.set("day", day);
 
       const [baseLink] = window.location.href.split("?");
@@ -315,6 +316,17 @@ const GoToDayButton = ({
   );
 };
 
+const prepareSearchParams = (params: URLSearchParams): URLSearchParams => {
+  const for_ = params.get("for");
+
+  if (for_) { // need it to have for as last param
+    params.delete("for");
+    params.set("for", for_);
+  }
+
+  return params;
+};
+
 const useGoToDay = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [day, setDay] = useState<AnyDay | null>(
@@ -337,7 +349,7 @@ const useGoToDay = () => {
         searchParams.set("day", day);
       }
 
-      setSearchParams(searchParams);
+      setSearchParams(prepareSearchParams(searchParams));
       setDay(day);
 
       if (day) scrollToDay(day);
@@ -491,7 +503,7 @@ const useSchedule = () => {
 
       const params = new URLSearchParams();
       params.set("for", type);
-      setSearchParams(params);
+      setSearchParams(prepareSearchParams(params));
     },
     [setSearchParams, scheduleType],
   );
@@ -596,14 +608,13 @@ const useGroup = (
     }
 
     searchParams.set("group", group);
-    setSearchParams(searchParams);
     setSchedule(schedule);
     setSubGroups(allSchedules[group]?.subgroups || null);
 
     if (subGroup) searchParams.set("subGroup", subGroup);
     else searchParams.delete("subGroup");
 
-    setSearchParams(searchParams);
+    setSearchParams(prepareSearchParams(searchParams));
   }, [
     group,
     searchParams,
