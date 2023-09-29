@@ -31,6 +31,7 @@ import { useSearchParams } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CopyToClipboardButton from "./components/CopyToClipboardButton";
+import ReactGA from "react-ga4";
 import { grey } from "@mui/material/colors";
 
 const xsSizeForArray = (arr: any[] | undefined) => 12 / (arr?.length ?? 1);
@@ -319,7 +320,8 @@ const GoToDayButton = ({
 const prepareSearchParams = (params: URLSearchParams): URLSearchParams => {
   const for_ = params.get("for");
 
-  if (for_) { // need it to have for as last param
+  if (for_) {
+    // need it to have for as last param
     params.delete("for");
     params.set("for", for_);
   }
@@ -596,6 +598,13 @@ const useGroup = (
   );
 
   useEffect(() => {
+    ReactGA.send({
+      hitType: "pageview",
+      page: window.location.pathname + window.location.search,
+    });
+  }, [searchParams]);
+
+  useEffect(() => {
     if (!group) return;
 
     let schedule = allSchedules[group]?.schedule;
@@ -688,9 +697,19 @@ function App() {
             if (reason === "selectOption") {
               setGroup(value);
               goToDay(null);
+
+              ReactGA.event({
+                category: "Schedule",
+                action: `Select ${value}`,
+              });
             } else if (reason === "clear") {
               setGroup(null);
               goToDay(null);
+
+              ReactGA.event({
+                category: "Schedule",
+                action: "Clear group",
+              });
             }
           }}
           renderInput={(params) => (

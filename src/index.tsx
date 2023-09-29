@@ -1,10 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import ReactGA from "react-ga4";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { teal } from "@mui/material/colors";
+
+const TRACKING_ID = "G-1G4FYWB2PF";
+
+ReactGA.initialize(TRACKING_ID);
 
 const theme = createTheme({
   palette: {
