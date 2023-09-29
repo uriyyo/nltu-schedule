@@ -13,7 +13,7 @@ ROOT = Path(__file__).parent
 
 URL = os.getenv("SCHEDULE_URL")
 
-EMPTY_CELL = "---"
+EMPTY_CELLS = ["---", "-x-"]
 
 EVENT_START_TIMES = [
     "08:30",
@@ -65,7 +65,28 @@ def get_schedule_df() -> pd.DataFrame:
     df["day"] = df["day"].str.replace("\n", "").ffill()
     df["day"] = df["day"].apply(lambda d: d.title())
     df["time"] = df["time"].apply(lambda x: tuple(x.split("_")))
-    df = df.replace(EMPTY_CELL, None)
+
+    for cell in EMPTY_CELLS:
+        df = df.replace(cell, None)
+
+    return df
+
+
+def get_teachers_schedule_df() -> pd.DataFrame:
+    df = pd.read_csv("teachers_schedule.csv", skiprows=1, header=None).T  # Read csv, and transpose
+    df.columns = df.iloc[0]
+    df.drop(0, inplace=True)
+    df.columns = ["day", "time", *df.columns[2:]]
+    df = df.dropna(axis=0, how="all")
+    df = df.dropna(axis=1, how="all")
+
+    df = df.ffill()
+    df["day"] = df["day"].str.replace("\n", "").ffill()
+    df["day"] = df["day"].apply(lambda d: d.title())
+    df["time"] = df["time"].apply(lambda x: tuple(x.split("_")))
+
+    for cell in EMPTY_CELLS:
+        df = df.replace(cell, None)
 
     return df
 
@@ -107,10 +128,7 @@ def normalize_event(odd: list[str], even: list[str]) -> dict[str, Any] | None:
 
         return {
             "type": "vertical",
-            "events": [
-                {"type": "single", "event": val} if val else {"type": "empty"}
-                for val in odd
-            ],
+            "events": [{"type": "single", "event": val} if val else {"type": "empty"} for val in odd],
         }
 
     return {
@@ -122,8 +140,8 @@ def normalize_event(odd: list[str], even: list[str]) -> dict[str, Any] | None:
     }
 
 
-def get_group_schedule(df: pd.DataFrame, group: str, subgroups: list[str]) -> Any:
-    df = df[["day", "time", *subgroups]]
+def get_grouped_schedule(df: pd.DataFrame, sub_entities: list[str]) -> Any:
+    df = df[["day", "time", *sub_entities]]
     days: dict[str, dict[str, Any]] = defaultdict(lambda: defaultdict(lambda: ([], [])))
 
     for _, day, (time, week), *rest in df.itertuples():
@@ -145,24 +163,45 @@ def get_group_schedule(df: pd.DataFrame, group: str, subgroups: list[str]) -> An
         if day_events:
             result.append({"day": day, "events": day_events})
 
-    return {
-        "group": group,
-        "subgroups": subgroups,
-        "schedule": result,
+    return result
+
+
+def get_teachers_schedule():
+    df = get_teachers_schedule_df()
+    teachers = [*df.columns[2:]]
+
+    schedules = {
+        teacher: {
+            "teacher": teacher,
+            "schedule": get_grouped_schedule(df, [teacher]),
+        }
+        for teacher in teachers
     }
 
+    with (ROOT / "src" / "teachers.json").open("w") as f:
+        json.dump(schedules, f, ensure_ascii=False, indent=4)
 
-def main() -> None:
+
+def get_students_schedule():
     df = get_schedule_df()
     groups = get_groups(df)
 
     schedules = {
-        group: get_group_schedule(df, group, subgroups)
+        group: {
+            "group": group,
+            "subgroups": subgroups,
+            "schedule": get_grouped_schedule(df, subgroups),
+        }
         for group, subgroups in groups.items()
     }
 
-    with (ROOT / "src" / "data.json").open("w") as f:
+    with (ROOT / "src" / "students.json").open("w") as f:
         json.dump(schedules, f, ensure_ascii=False, indent=4)
+
+
+def main() -> None:
+    get_students_schedule()
+    # get_teachers_schedule() # TODO: Use this when teachers schedule is ready to be used via shared URL
 
 
 if __name__ == "__main__":

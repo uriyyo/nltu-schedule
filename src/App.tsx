@@ -8,12 +8,13 @@ import {
   Container,
   Divider,
   Grid,
+  Stack,
   TextField,
   Typography,
-  Stack,
   useTheme,
 } from "@mui/material";
-import data from "./data.json";
+import students from "./students.json";
+import teachers from "./teachers.json";
 import {
   AnyDay,
   DayOfWeek,
@@ -22,6 +23,7 @@ import {
   HorizontalDayEvent,
   RelativeDay,
   ScheduleEvent,
+  ScheduleType,
   SingleDayEvent,
   VerticalDayEvent,
 } from "./types";
@@ -428,7 +430,7 @@ const ScheduleWeekTypeInfo = () => (
 );
 
 const Schedule = ({ schedule }: { schedule: GroupSchedule[] }) => {
-  const { group, subGroup } = useContext(AppContext);
+  const { group, subGroup, subGroups } = useContext(AppContext);
 
   return (
     <div>
@@ -442,10 +444,13 @@ const Schedule = ({ schedule }: { schedule: GroupSchedule[] }) => {
       <Divider />
       <br />
 
-      <SubGroupsButtonGroup />
-
-      <Divider />
-      <br />
+      {subGroups && (
+        <>
+          <SubGroupsButtonGroup />
+          <Divider />
+          <br />
+        </>
+      )}
 
       <DaysButtonGroup schedule={schedule} />
 
@@ -467,9 +472,67 @@ const Schedule = ({ schedule }: { schedule: GroupSchedule[] }) => {
 
 const useSchedule = () => {
   const [schedule, setSchedule] = useState<GroupSchedule[] | null>(null);
-  const allSchedules: GroupsSchedules = data as GroupsSchedules;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [scheduleType, setScheduleType] = useState<ScheduleType>(
+    searchParams.get("for") === "teachers"
+      ? ScheduleType.Teachers
+      : ScheduleType.Students,
+  );
 
-  return { schedule, setSchedule, allSchedules };
+  // @ts-ignore
+  const allSchedules: GroupsSchedules =
+    scheduleType === ScheduleType.Students ? students : teachers;
+
+  const setScheduleTypeCallback = useCallback(
+    (type: ScheduleType) => {
+      if (type === scheduleType) return;
+
+      setScheduleType(type);
+
+      const params = new URLSearchParams();
+      params.set("for", type);
+      setSearchParams(params);
+    },
+    [setSearchParams, scheduleType],
+  );
+
+  return {
+    schedule,
+    setSchedule,
+    allSchedules,
+    scheduleType,
+    setScheduleType: setScheduleTypeCallback,
+  };
+};
+
+const ChooseScheduleButtonGroup = ({
+  setGroup,
+  scheduleType,
+  setScheduleType,
+}: any) => {
+  const setType = (type: ScheduleType) => {
+    setGroup(null);
+    setScheduleType(type);
+  };
+
+  return (
+    <ButtonGroup variant="outlined" fullWidth={true}>
+      <Button
+        color={"inherit"}
+        onClick={() => setType(ScheduleType.Students)}
+        disabled={scheduleType === ScheduleType.Students}
+      >
+        Для Cтудентів
+      </Button>
+      <Button
+        color={"inherit"}
+        onClick={() => setType(ScheduleType.Teachers)}
+        disabled={scheduleType === ScheduleType.Teachers}
+      >
+        Для Викладачів
+      </Button>
+    </ButtonGroup>
+  );
 };
 
 const preFilterScheduleBySubGroup = (
@@ -580,7 +643,8 @@ const useGroup = (
 const AppContext = React.createContext<any | null>(null);
 
 function App() {
-  const { schedule, setSchedule, allSchedules } = useSchedule();
+  const { schedule, setSchedule, allSchedules, scheduleType, setScheduleType } =
+    useSchedule();
   const { goToDay } = useGoToDay();
   const { group, setGroup, subGroups, subGroup, setSubGroup } = useGroup(
     allSchedules,
@@ -594,6 +658,15 @@ function App() {
 
       <Container maxWidth="md">
         <h1>НЛТУ Розклад занять для спеціальностей КН, ІСТ, ІПЗ</h1>
+
+        <ChooseScheduleButtonGroup
+          setGroup={setGroup}
+          scheduleType={scheduleType}
+          setScheduleType={setScheduleType}
+        />
+
+        <Divider />
+        <br />
 
         <Autocomplete
           value={group}
@@ -609,7 +682,14 @@ function App() {
               goToDay(null);
             }
           }}
-          renderInput={(params) => <TextField {...params} label="Група" />}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={
+                scheduleType === ScheduleType.Students ? "Група" : "Викладач"
+              }
+            />
+          )}
         />
 
         <br />

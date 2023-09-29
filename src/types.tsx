@@ -64,3 +64,8 @@ export enum RelativeDay {
 }
 
 export type AnyDay = DayOfWeek | RelativeDay;
+
+export enum ScheduleType {
+  Students = "students",
+  Teachers = "teachers",
+}
