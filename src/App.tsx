@@ -597,6 +597,13 @@ const useGroup = (
     searchParams.get("subGroup"),
   );
 
+  const updateTitle = (subTitle: string | null) => {
+    const [mainTitle] = document.title.split("|");
+    document.title = subTitle
+      ? `${mainTitle.trim()} | ${subTitle}`
+      : mainTitle.trim();
+  };
+
   useEffect(() => {
     ReactGA.send({
       hitType: "pageview",
@@ -605,6 +612,8 @@ const useGroup = (
   }, [searchParams]);
 
   useEffect(() => {
+    updateTitle(subGroup ?? group);
+
     if (!group) return;
 
     let schedule = allSchedules[group]?.schedule;
