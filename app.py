@@ -1,13 +1,13 @@
 from collections import defaultdict
 from io import BytesIO
-from typing import Any, TypeAlias, Annotated, Literal, Final
+from typing import Any, TypeAlias, Annotated, Literal, Final, Iterator, Self, Container
 
 import pandas as pd
 from annotated_types import Interval
 from fastapi import FastAPI, Query, status
 from fastapi.responses import JSONResponse
-from httpx import get
-from pydantic import AnyHttpUrl, BaseModel, AfterValidator, StringConstraints, Field
+from httpx import get, HTTPStatusError
+from pydantic import AnyHttpUrl, BaseModel, AfterValidator, StringConstraints, Field, model_validator
 from starlette.datastructures import URL
 
 EVENT_START_TIMES: Final[list[str]] = [
@@ -24,20 +24,25 @@ EVENT_END_TIMES: Final[list[str]] = [
     "16:05",
     "17:35",
 ]
+SUB_EVENT_KEYS: Final[list[str]] = [
+    "nominator",
+    "denominator",
+    "simple",
+]
 SUB_EVENT_NORMALIZERS: Final[dict[str, str]] = {
     "лек.": "лекція",
     "лаб.": "лабораторна",
     "практ.": "практичні",
 }
 
-RAW_DAYS = [
+RAW_DAYS: Final[list[str]] = [
     "Понеділок",
     "Вівторок",
     "Середа",
     "Четвер",
     "Пятниця",
 ]
-DAYS = [
+DAYS: Final[list[str]] = [
     "monday",
     "tuesday",
     "wednesday",
@@ -80,8 +85,36 @@ class EventSchema(BaseModel):
     denominator: SubEventSchema | None = None
     simple: SubEventSchema | None = None
 
+    @model_validator(mode="after")
+    @classmethod
+    def __validate_subevents__(cls, event: Self) -> Self:
+        if event.simple:
+            groups = []
+            if event.nominator:
+                groups.extend(event.nominator.groups or [])
+            if event.denominator:
+                groups.extend(g for g in event.denominator.groups or [] if g not in groups)
 
-DayToEvents: TypeAlias = dict[Days, dict[StripedStr, EventSchema] | None]
+            event.nominator = None
+            event.denominator = None
+
+            # regroup and merge groups from nominator and denominator
+            if groups:
+                current = event.simple.groups or []
+                event.simple.groups = current + [g for g in groups if g not in current]
+
+        return event
+
+
+StartTimeToEvent: TypeAlias = Annotated[
+    dict[StartTime, EventSchema],
+    AfterValidator(lambda d: {k: d[k] for k in sorted(d, key=EVENT_START_TIMES.index)}),
+]
+DayToEvents: TypeAlias = Annotated[
+    dict[Days, StartTimeToEvent | None],
+    AfterValidator(lambda d: {k: d[k] for k in sorted(d, key=DAYS.index)}),
+]
+
 RootSchedulesSchema: TypeAlias = dict[StripedStr, DayToEvents]
 
 
@@ -197,6 +230,31 @@ def get_group_schedule(df: pd.DataFrame, group: str) -> Any:
     return result
 
 
+def remove_keys(d: dict[str, Any], keys: Container[str]) -> dict[str, Any]:
+    return {k: v for k, v in d.items() if k not in keys}
+
+
+def flat_events_for_tutor(schedule: dict[str, Any]) -> Iterator[Any]:
+    for days in schedule.values():
+        for day, events in days.items():
+            for start, event in events.items():
+                for key in SUB_EVENT_KEYS:
+                    if (subevent := event.get(key)) and (tutor := subevent.get("tutor")):
+                        yield tutor, day, start, key, event, subevent
+
+
+def regroup_schedule_for_tutors(schedule: dict[str, Any]) -> dict[str, Any]:
+    tutors_schedules = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: {})))
+
+    for tutor, day, start, key, event, subevent in flat_events_for_tutor(schedule):
+        tutors_schedules[tutor][day][start] |= remove_keys(event, SUB_EVENT_KEYS)
+        existing = tutors_schedules[tutor][day][start].get(key)
+        assert not existing or existing["name"] == subevent["name"], "Different subjects for the same tutor"
+        tutors_schedules[tutor][day][start][key] = subevent
+
+    return {tutor: tutors_schedules[tutor] for tutor in sorted(tutors_schedules)}
+
+
 def normalize_sheet_url(url: AnyHttpUrl) -> str:
     if url.path.strip("/").endswith("/edit"):
         export_url = URL(str(url))
@@ -231,6 +289,13 @@ app.add_exception_handler(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
     ),
 )
+app.add_exception_handler(
+    HTTPStatusError,
+    lambda request, exc: JSONResponse(
+        content={"detail": "Error while fetching schedule sheet"},
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+    ),
+)
 
 
 @app.get(
@@ -244,11 +309,21 @@ def get_schedule(
         description="URL of the schedule sheet",
         annotation=SheetUrl,
     ),
+    for_: Literal["students", "tutors"] = Query(
+        "students",
+        alias="for",
+        description="Who is the schedule for",
+    ),
 ) -> Any:
     df = get_schedule_df(str(sheet_url))
     groups = [*df.columns[2:]]
 
-    return {group: get_group_schedule(df, group) for group in groups}
+    schedules = {group: get_group_schedule(df, group) for group in groups}
+
+    if for_ == "tutors":
+        schedules = regroup_schedule_for_tutors(schedules)
+
+    return schedules
 
 
 if __name__ == "__main__":
