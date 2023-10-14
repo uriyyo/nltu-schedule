@@ -1,4 +1,5 @@
 from collections import defaultdict
+from contextvars import ContextVar
 from io import BytesIO
 from typing import Any, TypeAlias, Annotated, Literal, Final, Iterator, Self, Container
 
@@ -7,8 +8,17 @@ from annotated_types import Interval
 from fastapi import FastAPI, Query, status
 from fastapi.responses import JSONResponse
 from httpx import get, HTTPStatusError
-from pydantic import AnyHttpUrl, BaseModel, AfterValidator, StringConstraints, Field, model_validator
+from pydantic import (
+    AnyHttpUrl,
+    BaseModel,
+    AfterValidator,
+    StringConstraints,
+    Field,
+    model_validator,
+)
 from starlette.datastructures import URL
+
+EMPTY_CELLS: Final[list[str]] = ["---", "-x-"]
 
 EVENT_START_TIMES: Final[list[str]] = [
     "08:30",
@@ -69,6 +79,9 @@ StripedStr: TypeAlias = Annotated[
 ]
 
 
+_is_for_student: ContextVar[bool] = ContextVar("_is_for_student")
+
+
 class SubEventSchema(BaseModel):
     type: SubEventType
     name: StripedStr | None = Field(None, examples=["Математичний аналіз", "Адаптаційний курс"])
@@ -127,18 +140,27 @@ def fetch_schedule_csv_io(url: str) -> BytesIO:
 
 def get_schedule_df(url: str) -> pd.DataFrame:
     with fetch_schedule_csv_io(url) as csv_io:
-        df = pd.read_csv(csv_io, skiprows=1)
-
-    df = df.rename(columns={"Unnamed: 0": "day", "Unnamed: 1": "time"})
-    df = df.drop(df.filter(regex="^Unnamed.*$").columns, axis=1)
-    df = df.dropna(axis=0, how="all")
-    df = df[:-1]
+        if _is_for_student.get():
+            df = pd.read_csv(csv_io, skiprows=1)
+            df = df.rename(columns={"Unnamed: 0": "day", "Unnamed: 1": "time"})
+            df = df.drop(df.filter(regex="^Unnamed.*$").columns, axis=1)
+            df = df.dropna(axis=0, how="all")
+            df = df[:-1]
+        else:
+            df = pd.read_csv(csv_io, skiprows=1, header=None).T  # Read csv, and transpose
+            df.columns = df.iloc[0]
+            df.drop(0, inplace=True)
+            df.columns = ["day", "time", *df.columns[2:]]
+            df = df.dropna(axis=0, how="all")
+            df = df.dropna(axis=1, how="all")
 
     df = df.ffill()
     df["day"] = df["day"].str.replace("\n", "").ffill()
     df["day"] = df["day"].apply(lambda d: d.title())
     df["time"] = df["time"].apply(lambda x: tuple(x.split("_")))
-    df = df.replace("---", None)
+
+    for cell in EMPTY_CELLS:
+        df = df.replace(cell, None)
 
     return df
 
@@ -153,12 +175,7 @@ class InvalidEventFormatError(ValueError):
     pass
 
 
-def parse_event(event: str) -> dict[str, Any]:
-    for old, new in SUB_EVENT_NORMALIZERS.items():
-        event = event.replace(old, new)
-
-    parts = [p.strip() for p in event.strip().split("\n")]
-
+def _parse_student_event(parts: list[str]) -> dict[str, Any] | None:
     match parts:
         # exceptional case for "адаптаційний курс"
         case [groups, _, type_] if type_ == "адаптаційний курс":
@@ -180,8 +197,58 @@ def parse_event(event: str) -> dict[str, Any]:
                 "tutor": tutor.strip(),
                 "location": location.strip(),
             }
-        case _:
-            raise InvalidEventFormatError(f"Unexpected event format: {event!r}")
+
+
+def _parse_tutor_event(parts: list[str]) -> dict[str, Any] | None:
+    match parts:
+        case [group] if " " not in group:
+            return {
+                "groups": group.split(","),
+                "type": "лекція",
+            }
+        case [subject, "(online)", location]:
+            return {
+                "groups": [],
+                "type": "лекція",
+                "subject": subject.strip(),
+                "location": location.strip(),
+            }
+        case [group, subject, location]:
+            return {
+                **parse_subject(subject),
+                "groups": group.split(","),
+                "location": location.strip(),
+            }
+        case [group, subject]:
+            return {
+                **parse_subject(subject),
+                "groups": group.split(","),
+            }
+
+
+def parse_event(event: str) -> dict[str, Any]:
+    for old, new in SUB_EVENT_NORMALIZERS.items():
+        event = event.replace(old, new)
+
+    parts = [p.strip() for p in event.strip().split("\n")]
+
+    # TODO: workaround, for one of invalid events
+    match parts:
+        case [part] if " " in part:
+            first, rest = part.split(maxsplit=1)
+            rest, *last = rest.rsplit(maxsplit=2)
+
+            parts = [first, rest, " ".join(last)]
+
+    if _is_for_student.get():
+        data = _parse_student_event(parts)
+    else:
+        data = _parse_tutor_event(parts)
+
+    if not data:
+        raise InvalidEventFormatError(f"Unexpected event format: {event!r}")
+
+    return data
 
 
 def normalize_event(odd: str | None, even: str | None) -> dict[str, Any] | None:
@@ -315,15 +382,12 @@ def get_schedule(
         description="Who is the schedule for",
     ),
 ) -> Any:
+    _is_for_student.set(for_ == "students")
+
     df = get_schedule_df(str(sheet_url))
     groups = [*df.columns[2:]]
 
-    schedules = {group: get_group_schedule(df, group) for group in groups}
-
-    if for_ == "tutors":
-        schedules = regroup_schedule_for_tutors(schedules)
-
-    return schedules
+    return {group: get_group_schedule(df, group) for group in groups}
 
 
 if __name__ == "__main__":
