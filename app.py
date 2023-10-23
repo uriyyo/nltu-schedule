@@ -1,19 +1,19 @@
 from collections import defaultdict
 from contextvars import ContextVar
 from io import BytesIO
-from typing import Any, TypeAlias, Annotated, Literal, Final, Iterator, Self, Container
+from typing import Annotated, Any, Container, Final, Iterator, Literal, Self, TypeAlias
 
 import pandas as pd
 from annotated_types import Interval
 from fastapi import FastAPI, Query, status
 from fastapi.responses import JSONResponse
-from httpx import get, HTTPStatusError
+from httpx import HTTPStatusError, get
 from pydantic import (
+    AfterValidator,
     AnyHttpUrl,
     BaseModel,
-    AfterValidator,
-    StringConstraints,
     Field,
+    StringConstraints,
     model_validator,
 )
 from starlette.datastructures import URL
@@ -59,7 +59,7 @@ DAYS: Final[list[str]] = [
     "thursday",
     "friday",
 ]
-RAW_DAY_TO_DAY = dict(zip(RAW_DAYS, DAYS))
+RAW_DAY_TO_DAY = dict(zip(RAW_DAYS, DAYS, strict=True))
 
 Days: TypeAlias = Literal[*DAYS]
 

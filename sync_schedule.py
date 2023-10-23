@@ -1,17 +1,22 @@
+import json
 import os
 import re
 from collections import defaultdict
+from io import BytesIO
 from itertools import chain
-from typing import Any, Literal, TypeAlias, Sequence
 from pathlib import Path
+from typing import Any, Literal, Sequence, TypeAlias
+
 import pandas as pd
 from httpx import get
-from io import BytesIO
-import json
 
 ROOT = Path(__file__).parent
 
-URL = os.getenv("SCHEDULE_URL")
+STUDENTS_SCHEDULE_URL = os.getenv("STUDENTS_SCHEDULE_URL")
+TEACHERS_SCHEDULE_URL = os.getenv("TEACHERS_SCHEDULE_URL")
+
+assert STUDENTS_SCHEDULE_URL, "STUDENTS_SCHEDULE_URL env variable is not set"
+assert TEACHERS_SCHEDULE_URL, "TEACHERS_SCHEDULE_URL env variable is not set"
 
 EMPTY_CELLS = ["---", "-x-"]
 
@@ -45,15 +50,15 @@ CellType: TypeAlias = Literal[
 ]
 
 
-def fetch_schedule_csv_io() -> BytesIO:
-    response = get(URL, follow_redirects=True)
+def fetch_schedule_csv_io(url: str) -> BytesIO:
+    response = get(url, follow_redirects=True)
     response.raise_for_status()
 
     return BytesIO(response.content)
 
 
 def get_schedule_df() -> pd.DataFrame:
-    with fetch_schedule_csv_io() as csv_io:
+    with fetch_schedule_csv_io(STUDENTS_SCHEDULE_URL) as csv_io:
         df = pd.read_csv(csv_io, skiprows=1)
 
     df = df.rename(columns={"Unnamed: 0": "day", "Unnamed: 1": "time"})
@@ -73,7 +78,9 @@ def get_schedule_df() -> pd.DataFrame:
 
 
 def get_teachers_schedule_df() -> pd.DataFrame:
-    df = pd.read_csv("teachers_schedule.csv", skiprows=1, header=None).T  # Read csv, and transpose
+    with fetch_schedule_csv_io(TEACHERS_SCHEDULE_URL) as csv_io:
+        df = pd.read_csv(csv_io, skiprows=1, header=None).T  # Read csv, and transpose
+
     df.columns = df.iloc[0]
     df.drop(0, inplace=True)
     df.columns = ["day", "time", *df.columns[2:]]
@@ -201,7 +208,7 @@ def get_students_schedule():
 
 def main() -> None:
     get_students_schedule()
-    # get_teachers_schedule() # TODO: Use this when teachers schedule is ready to be used via shared URL
+    get_teachers_schedule()
 
 
 if __name__ == "__main__":
