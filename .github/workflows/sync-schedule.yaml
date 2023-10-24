@@ -29,7 +29,8 @@ jobs:
 
       - name: Run sync
         env:
-          SCHEDULE_URL: ${{ secrets.SCHEDULE_URL }}"
+          STUDENTS_SCHEDULE_URL : ${{ secrets.STUDENTS_SCHEDULE_URL }}
+          TEACHERS_SCHEDULE_URL : ${{ secrets.TEACHERS_SCHEDULE_URL }}
         run: |
           python sync_schedule.py
 
