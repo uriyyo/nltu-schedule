@@ -50,7 +50,7 @@ const isCurrentDayWeekend = () => [0, 6].includes(new Date().getDay());
 
 const isCurrentWeekNominator = () => {
   const today = new Date();
-  const isNominator = getWeekNumber(today) % 2 === 0;
+  const isNominator = getWeekNumber(today) % 2 === 1;
 
   return isCurrentDayWeekend() ? !isNominator : isNominator;
 };
