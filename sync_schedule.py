@@ -3,12 +3,19 @@ import os
 import re
 from collections import defaultdict
 from io import BytesIO
-from itertools import chain
+from itertools import chain, count
 from pathlib import Path
-from typing import Any, Literal, Sequence, TypeAlias
+from typing import Any, Iterable, Literal, Sequence, TypeAlias
 
+import numpy as np
 import pandas as pd
+from dotenv import load_dotenv
 from httpx import get
+from openpyxl import load_workbook
+from openpyxl.cell import Cell, MergedCell
+from openpyxl.worksheet.worksheet import Worksheet
+
+load_dotenv()
 
 ROOT = Path(__file__).parent
 
@@ -18,7 +25,7 @@ TEACHERS_SCHEDULE_URL = os.getenv("TEACHERS_SCHEDULE_URL")
 assert STUDENTS_SCHEDULE_URL, "STUDENTS_SCHEDULE_URL env variable is not set"
 assert TEACHERS_SCHEDULE_URL, "TEACHERS_SCHEDULE_URL env variable is not set"
 
-EMPTY_CELLS = ["---", "-x-"]
+EMPTY_CELLS = ["---", "-x-", "", np.nan]
 
 EVENT_START_TIMES = [
     "08:30",
@@ -50,23 +57,79 @@ CellType: TypeAlias = Literal[
 ]
 
 
-def fetch_schedule_csv_io(url: str) -> BytesIO:
+def fetch_schedule_io(url: str) -> BytesIO:
     response = get(url, follow_redirects=True)
     response.raise_for_status()
 
     return BytesIO(response.content)
 
 
-def get_schedule_df() -> pd.DataFrame:
-    with fetch_schedule_csv_io(STUDENTS_SCHEDULE_URL) as csv_io:
-        df = pd.read_csv(csv_io, skiprows=1)
+def get_merge_cell_start(sheet: Worksheet, merged: MergedCell) -> Cell | None:
+    for rng in sheet.merged_cells.ranges:
+        if merged.coordinate in rng:
+            return rng.start_cell
 
-    df = df.rename(columns={"Unnamed: 0": "day", "Unnamed: 1": "time"})
-    df = df.drop(df.filter(regex="^Unnamed.*$").columns, axis=1)
-    df = df.dropna(axis=0, how="all")
-    df = df[:-1]
+    return None
 
-    df = df.ffill()
+
+def iter_students_groups(sheet: Worksheet, offset: int) -> Iterable[tuple[int, str]]:
+    empty = 0
+
+    for idx in count(5):
+        if group := sheet.cell(row=offset, column=idx).value:
+            empty = 0
+            yield idx, group
+        else:
+            empty += 1
+
+        if empty > 1:
+            break
+
+
+def iter_students_days_idx(offset: int) -> Iterable[tuple[int, str, str]]:
+    start = offset
+    for day in DAYS:
+        for t in EVENT_START_TIMES:
+            yield start, day, t
+            start += 2
+
+        start += 1
+
+
+def read_group_sheet(sheet: Worksheet, col_idx: int, row_offset: int) -> Iterable[tuple[str, int]]:
+    def _get_cell(row: int, col: int) -> Cell:
+        cell = sheet.cell(row=row, column=col)
+
+        if isinstance(cell, MergedCell):
+            return get_merge_cell_start(sheet, cell)
+
+        return cell
+
+    for idx, (row_idx, *_) in enumerate(iter_students_days_idx(row_offset)):
+        idx *= 2
+
+        if nominator := _get_cell(row_idx, col_idx).value:
+            yield nominator, idx
+        if denominator := _get_cell(row_idx + 1, col_idx).value:
+            yield denominator, idx + 1
+
+
+def get_schedule_df(url: str) -> pd.DataFrame:
+    with fetch_schedule_io(url) as io:
+        workbook = load_workbook(io)
+
+    df = pd.DataFrame.from_records(
+        [{"day": day, "time": f"{time}_{event_tp}"} for day in DAYS for time in EVENT_START_TIMES for event_tp in "чз"],
+        columns=["day", "time"],
+    )
+
+    for sheet, row_offset in zip(workbook.worksheets, [4, 3], strict=False):
+        for col_idx, group in iter_students_groups(sheet, row_offset):
+            df[[group]] = ""
+
+            for event, idx in read_group_sheet(sheet, col_idx, row_offset + 1):
+                df.at[idx, group] = event
+
     df["day"] = df["day"].str.replace("\n", "").ffill()
     df["day"] = df["day"].apply(lambda d: d.title())
     df["time"] = df["time"].apply(lambda x: tuple(x.split("_")))
@@ -77,17 +140,88 @@ def get_schedule_df() -> pd.DataFrame:
     return df
 
 
-def get_teachers_schedule_df() -> pd.DataFrame:
-    with fetch_schedule_csv_io(TEACHERS_SCHEDULE_URL) as csv_io:
-        df = pd.read_csv(csv_io, skiprows=1, header=None).T  # Read csv, and transpose
+def normalize_teacher_name(name: str) -> str:
+    surname, name, *_ = name.split()
+    return f"{surname} {name}"
 
-    df.columns = df.iloc[0]
-    df.drop(0, inplace=True)
-    df.columns = ["day", "time", *df.columns[2:]]
-    df = df.dropna(axis=0, how="all")
-    df = df.dropna(axis=1, how="all")
 
-    df = df.ffill()
+def iter_teachers_days_idx() -> Iterable[tuple[int, str, str]]:
+    start = 2
+    for day in DAYS:
+        for t in EVENT_START_TIMES:
+            yield start, day, t
+            start += 1
+
+        start += 1
+
+
+def iter_through_teachers(sheet: Worksheet) -> Iterable[str]:
+    for idx in count(8, 4):
+        if name := sheet.cell(row=idx, column=1).value:
+            yield idx, normalize_teacher_name(name)
+        else:
+            break
+
+
+def parse_teacher_cells(cells: list[Cell]) -> Iterable[tuple[str, bool]]:
+    match cells:
+        case [
+            Cell() as first,
+            MergedCell(),
+            MergedCell(),
+            MergedCell(),
+        ]:
+            yield first.value, False
+            yield first.value, True
+        case [
+            Cell(),
+            Cell(),
+            Cell() as second,
+            MergedCell(),
+        ]:
+            yield second.value, True
+        case [
+            Cell() as first,
+            MergedCell(),
+            Cell() as second,
+            MergedCell(),
+        ]:
+            yield first.value, False
+            yield second.value, True
+
+
+def iter_through_teacher_schedule(sheet: Worksheet, start_idx: int) -> Iterable[tuple[str, str]]:
+    for idx, (cell_idx, _, _) in enumerate(iter_teachers_days_idx()):
+        cells = [sheet.cell(row=start_idx + i, column=cell_idx) for i in range(4)]
+
+        for event, is_denominator in parse_teacher_cells(cells):
+            if not event:
+                continue
+
+            offset = idx * 2 + is_denominator
+            yield offset, event
+
+
+def get_teachers_schedule_df(url: str) -> pd.DataFrame:
+    with fetch_schedule_io(url) as io:
+        workbook = load_workbook(io)
+
+    teachers = [teacher for _, teacher in iter_through_teachers(workbook.active)]
+
+    df = pd.DataFrame.from_records(
+        [
+            {"day": day, "time": f"{time}_{event_tp}"} | dict.fromkeys(teachers, "")
+            for day in DAYS
+            for time in EVENT_START_TIMES
+            for event_tp in "чз"
+        ],
+        columns=["day", "time", *teachers],
+    )
+
+    for idx, teacher in iter_through_teachers(workbook.active):
+        for offset, event in iter_through_teacher_schedule(workbook.active, idx):
+            df.at[offset, teacher] = event
+
     df["day"] = df["day"].str.replace("\n", "").ffill()
     df["day"] = df["day"].apply(lambda d: d.title())
     df["time"] = df["time"].apply(lambda x: tuple(x.split("_")))
@@ -174,7 +308,7 @@ def get_grouped_schedule(df: pd.DataFrame, sub_entities: list[str]) -> Any:
 
 
 def get_teachers_schedule():
-    df = get_teachers_schedule_df()
+    df = get_teachers_schedule_df(TEACHERS_SCHEDULE_URL)
     teachers = [*df.columns[2:]]
 
     schedules = {
@@ -190,7 +324,7 @@ def get_teachers_schedule():
 
 
 def get_students_schedule():
-    df = get_schedule_df()
+    df = get_schedule_df(STUDENTS_SCHEDULE_URL)
     groups = get_groups(df)
 
     schedules = {

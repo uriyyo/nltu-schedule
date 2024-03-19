@@ -2,6 +2,8 @@ uvicorn
 uvloop
 fastapi
 httpx
+numpy
 pandas
-black
 ruff
+openpyxl
+python-dotenv
