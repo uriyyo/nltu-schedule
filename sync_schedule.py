@@ -78,7 +78,7 @@ def iter_students_groups(sheet: Worksheet, offset: int) -> Iterable[tuple[int, s
     for idx in count(5):
         if group := sheet.cell(row=offset, column=idx).value:
             empty = 0
-            yield idx, group
+            yield idx, group.replace(" ", "")
         else:
             empty += 1
 
